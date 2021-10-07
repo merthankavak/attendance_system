@@ -4,7 +4,7 @@ const SendgridMail = require('@sendgrid/mail');
 
 SendgridMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-function sendMail(mailOptions) {
+function sendEmail(mailOptions) {
     return new Promise((resolve, reject) => {
         SendgridMail.send(mailOptions, (error, result) => {
             if (error) return reject(error);

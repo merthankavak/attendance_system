@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const passport = require('passport');
 const path = require('path');
-
+require('dotenv').config();
 const data = require('./util/data');
 
 const {
@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 app.use(express.json());
 
+
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
@@ -35,4 +36,8 @@ connection.on('error', (err) => {
 });
 
 app.use(passport.initialize());
+require("./middlewares/jwt")(passport);
+require('./routes/index')(app);
+
+
 app.listen(port, () => console.log('Server is running on https://localhost:' + port + '/'));

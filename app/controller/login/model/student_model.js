@@ -4,13 +4,13 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const StudentToken = require('./student_token_model');
 
-const StudentSchema = mongoose.Schema({
+const StudentSchema = new mongoose.Schema({
     studentId: {
         type: String,
         required: true,
         unique: true
     },
-    studentMail: {
+    email: {
         type: String,
         unique: true,
         required: true,
@@ -60,7 +60,24 @@ StudentSchema.method.generateVerificationToken = function () {
         token: crypto.randomBytes(20).toString('hex')
     };
     return new StudentToken(payload);
-}
+};
 
+StudentSchema.method.generateJWT = function () {
+    const today = new Date();
+    const expirationDate = new Date(today);
+    expirationDate.setDate(today.getDate() + 60);
+    let payload = {
+        id: this._id,
+        studentEmail: this.studentEmail
+    };
+    return jwt.sign(payload, process.env.JWT, {
+        expiresIn: parseInt(expiratiolnDate.getTime() / 1000,
+            10)
+    })
+};
+
+StudentSchema.method.comparePassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
+}
 
 module.exports = mongoose.model('Student', StudentSchema);
