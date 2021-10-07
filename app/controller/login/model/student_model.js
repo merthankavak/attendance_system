@@ -50,11 +50,11 @@ StudentSchema.pre('save', function (next) {
             if (err) return next(err);
             student.password = hash;
             next();
-        })
+        });
     })
 });
 
-StudentSchema.method.generateVerificationToken = function () {
+StudentSchema.methods.generateVerificationToken = function () {
     let payload = {
         studentId: this._id,
         token: crypto.randomBytes(20).toString('hex')
@@ -62,7 +62,7 @@ StudentSchema.method.generateVerificationToken = function () {
     return new StudentToken(payload);
 };
 
-StudentSchema.method.generateJWT = function () {
+StudentSchema.methods.generateJWT = function () {
     const today = new Date();
     const expirationDate = new Date(today);
     expirationDate.setDate(today.getDate() + 60);
@@ -76,7 +76,7 @@ StudentSchema.method.generateJWT = function () {
     })
 };
 
-StudentSchema.method.comparePassword = function (password) {
+StudentSchema.methods.comparePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 }
 

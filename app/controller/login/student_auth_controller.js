@@ -142,7 +142,7 @@ exports.resendToken = async (req, res) => {
 
 async function sendVerificationEmail(student, req, res) {
     try {
-        await Student.save();
+        await student.save();
         let to = student.email;
         let from = process.env.FROM_EMAİL;
         let replyTo = process.env.FROM_EMAİL;
