@@ -26,16 +26,6 @@ module.exports = passport => {
                         message: 'Server Error'
                     });
                 });
-            TeacherModel.findById(jwt_payload.id)
-                .then(teacher => {
-                    if (teacher) return done(null, teacher);
-                    return done(null, false);
-                })
-                .catch(err => {
-                    return done(err, false, {
-                        message: 'Server Error'
-                    });
-                });
         })
     );
 };
