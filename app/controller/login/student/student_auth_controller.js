@@ -1,5 +1,5 @@
-const Student = require('../model/student_model');
-const StudentToken = require('../model/student_token_model');
+const Student = require('../model/student/student_model');
+const StudentToken = require('../model/student/student_token_model');
 
 const {
     sendEmail

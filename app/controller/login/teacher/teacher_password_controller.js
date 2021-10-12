@@ -1,4 +1,4 @@
-const Teacher = require('../model/teacher_model');
+const Teacher = require('../model/teacher/teacher_model');
 const {
     sendEmail
 } = require('../../../util/app_helper');

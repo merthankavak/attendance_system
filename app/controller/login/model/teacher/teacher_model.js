@@ -5,20 +5,15 @@ const jwt = require('jsonwebtoken');
 const TeacherToken = require('./teacher_token_model');
 
 const TeacherSchema = new mongoose.Schema({
-    teacherId: {
-        type: String,
-        required: true,
-        unique: true
-    },
     email: {
         type: String,
         unique: true,
-        required: true,
+        required: 'Your email is required',
         trim: true
     },
     password: {
         type: String,
-        required: true,
+        required: 'Your password is required',
         max: 50
     },
     teacherName: {
@@ -31,7 +26,7 @@ const TeacherSchema = new mongoose.Schema({
     },
     isVerified: {
         type: Boolean,
-        required: false
+        default: false
     },
     resetPasswordOTP: {
         type: String,
@@ -80,7 +75,7 @@ TeacherSchema.methods.generateJWT = function () {
     const expirationDate = new Date(today);
     expirationDate.setDate(today.getDate() + 60);
     let payload = {
-        teacherId: this._id,
+        id: this._id,
         email: this.email
     };
     return jwt.sign(payload, process.env.JWT, {

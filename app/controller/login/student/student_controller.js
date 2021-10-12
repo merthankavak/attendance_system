@@ -1,4 +1,4 @@
-const Student = require('../model/student_model');
+const Student = require('../model/student/student_model');
 
 exports.changePassword = async (req, res) => {
     try {
