@@ -25,7 +25,7 @@ router.post('/login', [
 ], validate, TeacherAuth.login);
 
 //Teacher Email Verification
-router.get('/verify/:token', TeacherAuth.verify);
+router.get('/verify/teacher/:token', TeacherAuth.verify);
 router.post('/resend', TeacherAuth.resendToken);
 
 //Teacher Password RESET

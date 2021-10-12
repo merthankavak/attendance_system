@@ -25,7 +25,7 @@ router.post('/login', [
 ], validate, StudentAuth.login);
 
 //Student Email Verification
-router.get('/verify/:token', StudentAuth.verify);
+router.get('/verify/student/:token', StudentAuth.verify);
 router.post('/resend', StudentAuth.resendToken);
 
 //Student Password RESET

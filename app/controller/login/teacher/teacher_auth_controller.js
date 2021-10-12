@@ -158,7 +158,7 @@ async function sendVerificationEmail(teacher, req, res) {
             dynamicTemplateData: {
                 subject: "Account Verification",
                 fullname: fullName,
-                verify_url: "https://" + req.headers.host + "/api/auth/verify/" + teacherToken.token,
+                verify_url: "https://" + req.headers.host + "/api/auth/verify/teacher/" + teacherToken.token,
                 contact_url: "mailto:" + support,
             },
         });
