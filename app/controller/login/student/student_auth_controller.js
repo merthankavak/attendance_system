@@ -156,7 +156,7 @@ async function sendVerificationEmail(student, req, res) {
             replyTo,
             templateId: 'd-0eaea82743e644e58b12bdb99444b00e',
             dynamicTemplateData: {
-                subject: "Account Verification",
+
                 fullname: fullName,
                 verify_url: "https://" + req.headers.host + "/api/auth/verify/student/" + studentToken.token,
                 contact_url: "mailto:" + support,
