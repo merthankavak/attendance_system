@@ -79,7 +79,7 @@ exports.login = async (req, res) => {
     }
 };
 
-// @route GET api/verify/student/:token
+// @route GET api/auth/student/verify/:token
 // @desc Verify token
 exports.verify = async (req, res) => {
     if (!req.params.token) return res.status(400).json({
@@ -113,7 +113,7 @@ exports.verify = async (req, res) => {
     }
 };
 
-// @route POST api/resend
+// @route POST api/auth/student/resend
 // @desc Resend Verification Token
 exports.resendToken = async (req, res) => {
     try {
@@ -157,7 +157,7 @@ async function sendVerificationEmail(student, req, res) {
             dynamicTemplateData: {
                 subject: "Account Verification",
                 fullname: fullName,
-                verifyUrl: "https://" + req.headers.host + "/api/auth/verify/student/" + studentToken.token,
+                verifyUrl: "https://" + req.headers.host + "/api/auth/student/verify/" + studentToken.token,
                 contactUrl: "mailto:" + support,
             },
         });
