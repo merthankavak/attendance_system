@@ -4,6 +4,10 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const StudentToken = require('./student_token_model');
 
+const {
+    generateOTP
+} = require('../../../../util/app_helper');
+
 const StudentSchema = new mongoose.Schema({
     stdId: {
         type: String,
@@ -59,7 +63,7 @@ StudentSchema.pre('save', function (next) {
             student.password = hash;
             next();
         });
-    })
+    });
 });
 
 StudentSchema.methods.comparePassword = function (password) {
