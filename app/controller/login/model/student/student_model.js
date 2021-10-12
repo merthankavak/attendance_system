@@ -5,6 +5,11 @@ const jwt = require('jsonwebtoken');
 const StudentToken = require('./student_token_model');
 
 const StudentSchema = new mongoose.Schema({
+    stdId: {
+        type: String,
+        unique: true,
+        required: 'Your student id is required',
+    },
     email: {
         type: String,
         unique: true,

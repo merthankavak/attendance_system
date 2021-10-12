@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
 
         const newStudent = new Student({
             ...req.body,
-            role: 'basic',
+            role: "basic",
         });
 
         const student_ = await newStudent.save();
