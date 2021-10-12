@@ -27,7 +27,6 @@ const StudentSchema = new mongoose.Schema({
     },
     studentName: {
         type: String,
-        required: true
     },
     studentImage: {
         type: Buffer,
