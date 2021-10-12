@@ -144,7 +144,6 @@ async function sendVerificationEmail(student, req, res) {
     try {
         const studentToken = student.generateVerificationToken();
         await studentToken.save();
-
         let to = student.email;
         let from = process.env.FROM_EMAIL;
         let replyTo = process.env.FROM_EMAIL;
