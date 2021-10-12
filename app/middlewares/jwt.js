@@ -2,8 +2,7 @@ const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const StudentModel = require('../controller/login/model/student_model');
-
-
+const TeacherModel = require('../controller/login/model/teacher_model');
 
 const {
     jwtSecret,
@@ -24,10 +23,19 @@ module.exports = passport => {
                 })
                 .catch(err => {
                     return done(err, false, {
-                        message: 'Student Server Error'
+                        message: 'Server Error'
                     });
                 });
-
+            TeacherModel.findById(jwt_payload.id)
+                .then(teacher => {
+                    if (teacher) return done(null, teacher);
+                    return done(null, false);
+                })
+                .catch(err => {
+                    return done(err, false, {
+                        message: 'Server Error'
+                    });
+                });
         })
     );
 };

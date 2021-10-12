@@ -36,6 +36,15 @@ const StudentSchema = new mongoose.Schema({
     isVerified: {
         type: Boolean,
         required: false
+    },
+    resetPasswordOTP: {
+        type: String,
+        required: false
+    },
+
+    resetPasswordExpires: {
+        type: Date,
+        required: false
     }
 }, {
     timestamps: true
@@ -54,6 +63,10 @@ StudentSchema.pre('save', function (next) {
     })
 });
 
+StudentSchema.methods.comparePassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
+};
+
 StudentSchema.methods.generateVerificationToken = function () {
     let payload = {
         studentId: this._id,
@@ -62,22 +75,23 @@ StudentSchema.methods.generateVerificationToken = function () {
     return new StudentToken(payload);
 };
 
+StudentSchema.methods.generatePasswordReset = function () {
+    this.resetPasswordOTP = generateOTP(6);
+    this.resetPasswordExpires = Date.now() + 300000; //expires in an hour
+};
+
 StudentSchema.methods.generateJWT = function () {
     const today = new Date();
     const expirationDate = new Date(today);
     expirationDate.setDate(today.getDate() + 60);
     let payload = {
-        id: this._id,
-        studentEmail: this.studentEmail
+        studentId: this._id,
+        email: this.email
     };
     return jwt.sign(payload, process.env.JWT, {
-        expiresIn: parseInt(expiratiolnDate.getTime() / 1000,
-            10)
-    })
+        expiresIn: parseInt(expirationDate.getTime() / 1000, 10)
+    });
 };
 
-StudentSchema.methods.comparePassword = function (password) {
-    return bcrypt.compareSync(password, this.password);
-}
 
 module.exports = mongoose.model('Student', StudentSchema);
