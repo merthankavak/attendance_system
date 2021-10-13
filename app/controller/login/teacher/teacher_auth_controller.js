@@ -146,9 +146,9 @@ async function sendVerificationEmail(teacher, req, res) {
         await teacherToken.save();
 
         let to = teacher.email;
-        let from = process.env.FROM_EMAİL;
-        let replyTo = process.env.FROM_EMAİL;
-        let support = process.env.FROM_EMAİL;
+        let from = process.env.FROM_EMAIL;
+        let replyTo = process.env.FROM_EMAIL;
+        let support = process.env.FROM_EMAIL;
         let fullName = teacher.teacherName;
         await sendEmail({
             to,
