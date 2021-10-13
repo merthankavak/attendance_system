@@ -4,6 +4,10 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const TeacherToken = require('./teacher_token_model');
 
+const {
+    generateOTP
+} = require('../../../../util/app_helper');
+
 const TeacherSchema = new mongoose.Schema({
     email: {
         type: String,
