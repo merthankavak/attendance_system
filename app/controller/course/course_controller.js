@@ -1,5 +1,5 @@
 const Course = require('../course/model/course');
-
+const Teacher = require('../login/model/teacher/teacher_model');
 // @route GET api/teacher/course/{id}
 // @desc Returns a specific course
 // @access Public
@@ -29,11 +29,15 @@ exports.show = async function (req, res) {
 // @access Public
 exports.addCourse = async (req, res) => {
     try {
+        const id = req.body.teacherId;
+        const teacher = await Teacher.findById(id);
         const newCourse = new Course({
-            ...req.body
+            ...req.body,
         });
 
-        await newCourse.save();
+        const course_ = await newCourse.save();
+        course_.teacher = teacher;
+        await course_.save();
 
         res.status(200).json({
             message: 'Course successfully created'
