@@ -24,7 +24,19 @@ function generateOTP(otp_length) {
     return OTP.toString();
 };
 
+function generateCourseCode() {
+    // Declare a characters variable
+    // which stores all characters
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let courseCode = "";
+    for (let i = 0; i < 6; i++) {
+        courseCode += characters[Math.floor(Math.random() * characters.length)];
+    }
+    return courseCode.toString();
+};
+
 module.exports = {
     sendEmail,
-    generateOTP
+    generateOTP,
+    generateCourseCode
 }
