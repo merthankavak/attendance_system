@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const passport = require('passport');
+const passportForTeacher = require('passport');
+const passportForStudent = require('passport');
 const path = require('path');
 require('dotenv').config();
 const data = require('./util/data');
@@ -39,9 +40,10 @@ connection.on('error', (err) => {
     process.exit();
 });
 
-app.use(passport.initialize());
-require("./middlewares/student/jwt")(passport);
-require("./middlewares/teacher/jwt")(passport);
+app.use(passportForStudent.initialize());
+app.use(passportForTeacher.initialize());
+require("./middlewares/student/jwt")(passportForStudent);
+require("./middlewares/teacher/jwt")(passportForTeacher);
 require('./routes/index')(app);
 
 
