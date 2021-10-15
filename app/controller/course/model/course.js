@@ -23,7 +23,10 @@ const CourseSchema = mongoose.Schema({
         required: true
     },
     students: {
-        type: [String],
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Student'
+        }],
     }
 }, {
     collection: 'courses'

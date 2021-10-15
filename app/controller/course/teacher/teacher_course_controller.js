@@ -1,5 +1,5 @@
-const Course = require('../course/model/course');
-const Teacher = require('../login/model/teacher/teacher_model');
+const Course = require('../model/course');
+const Teacher = require('../../login/model/teacher/teacher_model');
 // @route GET api/teacher/course/{id}
 // @desc Returns a specific course
 // @access Public

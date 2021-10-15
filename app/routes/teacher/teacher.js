@@ -5,7 +5,7 @@ const {
 
 
 const Teacher = require('../../controller/login/teacher/teacher_controller');
-const Course = require('../../controller/course/course_controller');
+const Course = require('../../controller/course/teacher/teacher_course_controller');
 const router = express.Router();
 
 

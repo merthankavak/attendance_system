@@ -3,7 +3,7 @@ const {
     check
 } = require('express-validator');
 
-
+const Course = require('../../controller/course/student/student_course_controller');
 const Student = require('../../controller/login/student/student_controller');
 
 const router = express.Router();
@@ -18,5 +18,12 @@ router.post('/changepassword/:id', [
         req
     }) => (value === req.body.password)),
 ], Student.changePassword);
+
+
+//SHOW COURSE
+router.get('/course/:id', Course.show);
+
+//JOIN COURSE
+router.post('/course/joincourse', Course.joinCourse);
 
 module.exports = router;
