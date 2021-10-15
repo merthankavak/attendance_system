@@ -9,7 +9,7 @@ exports.show = async function (req, res) {
         const studentId = req.params.id;
 
         const courseList = await Course.find({
-            students: [{
+            'students': [{
                 $elemMatch: {
                     _id: studentId,
                 }
