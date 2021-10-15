@@ -10,7 +10,9 @@ exports.show = async function (req, res) {
 
         const courseList = await Course.aggregate([{
             $match: {
-                'students._id': studentId
+                '_id': {
+                    '$in': studentId
+                }
             }
         }]);
 
