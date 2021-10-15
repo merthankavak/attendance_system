@@ -57,12 +57,6 @@ exports.addCourse = async (req, res) => {
 exports.deleteCourse = async function (req, res) {
     try {
         const id = req.params.id;
-        const teacher_id = req.teacher._id;
-
-        //Make sure the passed id is that of the logged in user
-        if (teacher_id.toString() !== id.toString()) return res.status(401).json({
-            message: "Sorry, you don't have the permission to delete this data."
-        });
 
         await Course.findByIdAndDelete(id);
         res.status(200).json({
