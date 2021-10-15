@@ -8,13 +8,14 @@ exports.show = async function (req, res) {
     try {
         const studentId = req.params.id;
 
-        const courseList = await Course.find([{
-            $match: {
-                '_id': {
-                    '$in': [studentId]
+        const courseList = await Course.find(
+            students, {
+                $match: {
+                    '_id': {
+                        '$in': [studentId]
+                    }
                 }
-            }
-        }]);
+            });
 
         if (!courseList) return res.status(401).json({
             message: 'Course does not exist.'
