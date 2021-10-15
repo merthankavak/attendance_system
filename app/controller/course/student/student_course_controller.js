@@ -7,13 +7,12 @@ const Student = require('../../login/model/student/student_model');
 exports.show = async function (req, res) {
     try {
         const studentId = req.params.id;
-        studentIdString = studentId.toString();
-        const courseList = await Course.find({
-            'students': {
-                "$regex": studentIdString,
-                "$options": "i"
+
+        const courseList = await Course.aggregate([{
+            $match: {
+                'students._id': studentId
             }
-        });
+        }]);
 
         if (!courseList) return res.status(401).json({
             message: 'Course does not exist.'
