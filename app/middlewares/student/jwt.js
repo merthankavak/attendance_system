@@ -13,8 +13,8 @@ const opts = {
 };
 
 module.exports = passport => {
-    passport.use(
-        new JwtStrategy('student', opts, (jwt_payload, done) => {
+    passport.use('student',
+        new JwtStrategy(opts, (jwt_payload, done) => {
             StudentModel.findById(jwt_payload.id)
                 .then(student => {
                     if (student) return done(null, student);
