@@ -10,10 +10,8 @@ exports.show = async function (req, res) {
 
         const courseList = await Course.find({
             'students': [{
-                $elemMatch: {
-                    _id: studentId,
-                }
-            }]
+                _id: studentId
+            }],
         });
 
         if (!courseList) return res.status(401).json({
