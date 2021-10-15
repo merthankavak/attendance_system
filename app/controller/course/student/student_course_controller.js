@@ -9,7 +9,10 @@ exports.show = async function (req, res) {
         const studentId = req.params.id;
 
         const courseList = await Course.find({
-            'students._id': studentId
+            'students': {
+                "$regex": studentId,
+                "$options": "i"
+            }
         });
 
         if (!courseList) return res.status(401).json({
@@ -41,6 +44,8 @@ exports.joinCourse = async (req, res) => {
         if (!course) return res.status(401).json({
             message: 'Course does not exist.'
         });
+
+
         await course.students.push(student);
         await course.save();
 
