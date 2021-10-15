@@ -41,6 +41,7 @@ connection.on('error', (err) => {
 
 app.use(passport.initialize());
 require("./middlewares/student/jwt")(passport);
+require("./middlewares/teacher/jwt")(passport);
 require('./routes/index')(app);
 
 
