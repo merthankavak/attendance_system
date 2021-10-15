@@ -1,12 +1,11 @@
 const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 
-const StudentModel = require('../controller/login/model/student/student_model');
-const TeacherModel = require('../controller/login/model/teacher/teacher_model');
+const StudentModel = require('../../controller/login/model/student/student_model');
 
 const {
     jwtSecret,
-} = require('../util/data');
+} = require('../../util/data');
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

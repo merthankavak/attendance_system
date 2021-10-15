@@ -36,7 +36,7 @@ exports.addCourse = async (req, res) => {
         });
 
         const course_ = await newCourse.save();
-        course_.teacher = teacher;
+        course_.teacherId = teacher;
         await course_.save();
 
         res.status(200).json({

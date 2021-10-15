@@ -40,7 +40,7 @@ connection.on('error', (err) => {
 });
 
 app.use(passport.initialize());
-require("./middlewares/jwt")(passport);
+require("./middlewares/student/jwt")(passport);
 require('./routes/index')(app);
 
 
