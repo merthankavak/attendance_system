@@ -28,11 +28,11 @@ const CourseSchema = mongoose.Schema({
             ref: 'Student'
         },
         stdId: {
-            type: mongoose.Schema.Types.Subdocument.schemaName('stdId'),
+            type: mongoose.Schema.Types.stdId,
             ref: 'Student'
         },
         studentName: {
-            type: mongoose.Schema.Types.Subdocument.schemaName('studentName'),
+            type: mongoose.Schema.Types.studentName,
             ref: 'Student'
         },
 
