@@ -7,10 +7,10 @@ const Student = require('../../login/model/student/student_model');
 exports.show = async function (req, res) {
     try {
         const studentId = req.params.id;
-
+        studentIdString = studentId.toString();
         const courseList = await Course.find({
             'students': {
-                "$regex": studentId.toString(),
+                "$regex": studentIdString,
                 "$options": "i"
             }
         });
