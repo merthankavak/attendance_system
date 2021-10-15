@@ -22,12 +22,22 @@ const CourseSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    students: {
-        type: [{
+    students: [{
+        _id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Student'
-        }],
-    }
+        },
+        stdId: {
+            type: mongoose.Schema.Types.Subdocument.schemaName('stdId'),
+            ref: 'Student'
+        },
+        studentName: {
+            type: mongoose.Schema.Types.Subdocument.schemaName('studentName'),
+            ref: 'Student'
+        },
+
+    }],
+
 }, {
     collection: 'courses'
 });
