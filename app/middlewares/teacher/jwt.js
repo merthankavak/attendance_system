@@ -14,7 +14,7 @@ const opts = {
 
 module.exports = passport => {
     passport.use(
-        new JwtStrategy(opts, (jwt_payload, done) => {
+        new JwtStrategy('teacher', opts, (jwt_payload, done) => {
             TeacherModel.findById(jwt_payload.id)
                 .then(teacher => {
                     if (teacher) return done(null, teacher);
