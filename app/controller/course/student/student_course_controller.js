@@ -10,7 +10,7 @@ exports.show = async function (req, res) {
 
         const courseList = await Course.find({
             'students': {
-                "$regex": studentId,
+                "$regex": studentId.toString(),
                 "$options": "i"
             }
         });
