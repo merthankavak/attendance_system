@@ -35,6 +35,7 @@ exports.addCourse = async (req, res) => {
             ...req.body,
         });
 
+        await newCourse.generateRandomCourseCode();
         const course_ = await newCourse.save();
         course_.teacherId = teacher;
         await course_.save();
