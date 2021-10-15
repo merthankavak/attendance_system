@@ -28,11 +28,11 @@ const CourseSchema = mongoose.Schema({
             ref: 'Student'
         },
         stdId: {
-            type: mongoose.Schema.Types.stdId,
+            type: String,
             ref: 'Student'
         },
         studentName: {
-            type: mongoose.Schema.Types.studentName,
+            type: String,
             ref: 'Student'
         },
 
