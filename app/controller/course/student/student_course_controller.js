@@ -37,6 +37,9 @@ exports.joinCourse = async (req, res) => {
         const course = await Course.findOne({
             'courseCode': courseCode
         });
+        if (!course) return res.status(401).json({
+            message: 'Course code does not exist.'
+        });
         await course.students.push(student);
         await course.save();
 
