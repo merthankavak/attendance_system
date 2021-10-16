@@ -80,7 +80,9 @@ exports.editCourseSchedule = async (req, res) => {
         let courseEndDate = req.body.courseEndDate; //20.03.2015
         let courseTimes = req.body.courseTimes; //09:00-12:00
 
-        let currentCourse = await Course.findById(courseId);
+        let currentCourse = await Course.findOne({
+            courseId
+        });
         let dateArray = [];
         let timeArray = [];
         let startDate = moment(courseStartDate, 'DD-MM-YYYY');
