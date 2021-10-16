@@ -88,9 +88,9 @@ exports.editCourseSchedule = async (req, res) => {
             dateArray.push(moment(startDate).format('DD-MM-YYYY'));
             startDate = moment(startDate).add(7, 'days');
         }
-        currentCourse.attendance.date = dateArray;
-        currentCourse.attendance.time = courseTimes;
-        await currentCourse.save();
+
+        const currentCourse_ = await currentCourse.attendance.push(dateArray, startDate);
+        await currentCourse_.save();
         res.status(200).json({
             message: 'Course schedule successfully added'
         });
