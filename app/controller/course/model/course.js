@@ -55,21 +55,10 @@ const CourseSchema = mongoose.Schema({
             default: '0'
         },
         students: [{
-                stdId: {
-                    type: String,
-                    ref: "Course.students"
-                },
-                email: {
-                    type: String,
-                    ref: "Course.students"
-                },
-                studentName: {
-                    type: String,
-                    ref: "Course.students"
-                },
-
-            }
-        ]
+            stdId: Course.students.stdId,
+            email: Course.students.email,
+            studentName: Course.students.studentName,
+        }]
     }],
 }, {
     timestamps: true
