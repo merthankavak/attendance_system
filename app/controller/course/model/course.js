@@ -31,24 +31,7 @@ const CourseSchema = mongoose.Schema({
             ref: 'Teacher'
         },
     },
-    students: [{
-        _id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Student'
-        },
-        stdId: {
-            type: String,
-            ref: 'Student'
-        },
-        studentName: {
-            type: String,
-            ref: 'Student'
-        },
-        email: {
-            type: String,
-            ref: 'Student'
-        },
-    }],
+
     attendance: [{
         date: {
             type: String,
