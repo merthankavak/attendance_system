@@ -68,6 +68,9 @@ const CourseSchema = mongoose.Schema({
                 type: String,
                 ref: 'Student'
             },
+            attendanceStatus: {
+                type: Boolean,
+            },
         }],
     }],
 }, {
