@@ -51,10 +51,12 @@ const CourseSchema = mongoose.Schema({
     }],
     attendance: [{
         date: {
-            type: String
+            type: String,
+            default: '0'
         },
         time: {
-            type: String
+            type: String,
+            default: '0'
         },
         students: [{
             stdId: {
