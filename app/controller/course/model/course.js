@@ -57,9 +57,11 @@ const CourseSchema = mongoose.Schema({
         students: [{
             stdId: {
                 type: String,
+                ref: 'Student'
             },
             studentName: {
                 type: String,
+                ref: 'Student'
             },
             attendanceStatus: {
                 type: Boolean,
