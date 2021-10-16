@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Students = require('../../login/model/student/student_model').schema;
 const {
     generateCourseCode
 } = require('../../../util/app_helper');
@@ -54,19 +55,7 @@ const CourseSchema = mongoose.Schema({
             type: String,
             default: '0'
         },
-        students: [{
-            stdId: {
-                type: String,
-                ref: 'Student'
-            },
-            studentName: {
-                type: String,
-                ref: 'Student'
-            },
-            attendanceStatus: {
-                type: Boolean,
-            }
-        }]
+        students: [Students]
     }],
 }, {
     timestamps: true
