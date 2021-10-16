@@ -51,6 +51,7 @@ exports.joinCourse = async (req, res) => {
             });
         }
         await course.students.push(student);
+        await course.attendance.students.push(student);
         await course.save();
 
         res.status(200).json({

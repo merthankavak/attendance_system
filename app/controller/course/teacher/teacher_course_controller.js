@@ -1,4 +1,5 @@
 const Course = require('../model/course');
+const Student = require('../../login/model/student/student_model');
 var moment = require('moment');
 const Teacher = require('../../login/model/teacher/teacher_model');
 // @route GET api/teacher/course/{id}
