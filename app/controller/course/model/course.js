@@ -13,15 +13,24 @@ const CourseSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    teacherId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Teacher'
-    },
     courseName: {
         type: String,
         required: true
     },
+    teacher: [{
+        _id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Student'
+        },
+        teacherName: {
+            type: String,
+            ref: 'Teacher'
+        },
+        email: {
+            type: String,
+            ref: 'Teacher'
+        },
+    }],
     students: [{
         _id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -35,9 +44,34 @@ const CourseSchema = mongoose.Schema({
             type: String,
             ref: 'Student'
         },
-
+        email: {
+            type: String,
+            ref: 'Student'
+        },
     }],
-
+    attendance: [{
+        date: {
+            type: String
+        },
+        courseTime: [{
+            time: {
+                type: String
+            },
+            students: [{
+                stdId: {
+                    type: String,
+                    ref: 'Student'
+                },
+                studentName: {
+                    type: String,
+                    ref: 'Student'
+                },
+                attendanceStatus: {
+                    type: Boolean,
+                }
+            }]
+        }]
+    }],
 }, {
     collection: 'courses'
 });

@@ -15,7 +15,6 @@ exports.show = async function (req, res) {
                 }
             }
         });
-
         if (!courseList) return res.status(401).json({
             message: 'Course does not exist.'
         });
@@ -41,11 +40,12 @@ exports.joinCourse = async (req, res) => {
         const course = await Course.findOne({
             'courseCode': courseCode
         });
-
         if (!course) return res.status(401).json({
             message: 'Course does not exist.'
         });
-
+        if (course.students.include(id)) return res.status(401).json({
+            message: 'You have already enrolled this course.'
+        });
 
         await course.students.push(student);
         await course.save();
