@@ -98,9 +98,7 @@ exports.editCourseSchedule = async (req, res) => {
 
         }
 
-        await currentCourse.push(currentCourse.attendance.create({
-            courseSchedule
-        }));
+        await currentCourse.attendance.push(courseSchedule);
         await currentCourse.save();
 
         res.status(200).json({
