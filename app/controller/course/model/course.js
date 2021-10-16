@@ -55,9 +55,9 @@ const CourseSchema = mongoose.Schema({
             default: '0'
         },
         students: [{
-            stdId: Course.students.stdId,
-            email: Course.students.email,
-            studentName: Course.students.studentName,
+            stdId: CourseSchema.students.stdId,
+            email: CourseSchema.students.email,
+            studentName: CourseSchema.students.studentName,
         }]
     }],
 }, {
