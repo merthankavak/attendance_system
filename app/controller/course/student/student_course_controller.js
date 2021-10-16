@@ -50,8 +50,15 @@ exports.joinCourse = async (req, res) => {
                 message: 'You have already enrolled this course.'
             });
         }
+
+        const studentList = await Course.find({
+            attendance
+        });
         await course.students.push(student);
-        await course.attendance.students.push(student);
+        for (let i = 0; i < studentList.length; i++) {
+            studentList[i].students.push(student);
+        }
+        await studentList.save();
         await course.save();
 
         res.status(200).json({
