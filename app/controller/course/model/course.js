@@ -57,15 +57,15 @@ const CourseSchema = mongoose.Schema({
         students: [{
                 stdId: {
                     type: String,
-                    ref: "Course"
+                    ref: "Course.students"
                 },
                 email: {
                     type: String,
-                    ref: "Course"
+                    ref: "Course.students"
                 },
                 studentName: {
                     type: String,
-                    ref: "Course"
+                    ref: "Course.students"
                 },
 
             }
