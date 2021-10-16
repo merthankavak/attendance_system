@@ -56,7 +56,7 @@ exports.joinCourse = async (req, res) => {
         for (let i = 0; i < attendanceArray.length; i++) {
             attendanceArray[i].students.push(student);
         }
-        await attendanceArray.save();
+      
         await course.save();
 
         res.status(200).json({
