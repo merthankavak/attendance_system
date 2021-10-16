@@ -81,7 +81,7 @@ exports.editCourseSchedule = async (req, res) => {
         let courseTimes = req.body.courseTimes; //09:00-12:00
 
         let currentCourse = await Course.findOne({
-            id: id
+            id
         });
         let dateArray = [];
         let timeArray = [];
