@@ -1,4 +1,5 @@
 const Course = require('../model/course');
+const moment = require('moment');
 const Teacher = require('../../login/model/teacher/teacher_model');
 // @route GET api/teacher/course/{id}
 // @desc Returns a specific course
@@ -66,5 +67,36 @@ exports.deleteCourse = async function (req, res) {
         res.status(500).json({
             message: error.message
         });
+    }
+};
+
+// @route POST api/teacher/course/{id}/editschedule
+// @desc Delete course
+// @access Public
+exports.editCourseSchedule = async (req, res) => {
+    try {
+        const courseId = req.params.courseId;
+        const courseStartDate = req.body.courseStartDate; //20.03.2014
+        const courseEndDate = req.body.courseEndDate; //20.03.2015
+        const courseTimes = req.body.courseTimes; //09:00-12:00
+
+        const currentCourse = await Course.findById(courseId);
+        const dateArray = [];
+        const startDate = moment(courseStartDate);
+        const endDate = moment(courseEndDate);
+        while (startDate <= endDate) {
+            dateArray.push(moment(startDate).format('DD-MM-YYYY'));
+            startDate = moment(startDate).add(7, 'days');
+        }
+        currentCourse.attendance = [courseStartDate, courseTimes];
+        await currentCourse.save();
+        res.status(200).json({
+            message: 'Course schedule successfully added'
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
     }
 };
