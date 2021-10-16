@@ -82,6 +82,11 @@ exports.editCourseSchedule = async (req, res) => {
         let courseEndDate = req.body.courseEndDate; //20.03.2015
         let courseTimes = req.body.courseTimes; //09:00-12:00
         let currentCourse = await Course.findById(id);
+
+        if (!currentCourse) res.status(401).json({
+            message: 'Course not found'
+        });
+
         let courseScheduleArray = [];
         let timeArray = [];
         let dateArray = [];
