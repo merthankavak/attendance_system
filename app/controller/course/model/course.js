@@ -20,7 +20,7 @@ const CourseSchema = mongoose.Schema({
     teacher: {
         _id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Student'
+            ref: 'Teacher'
         },
         teacherName: {
             type: String,
