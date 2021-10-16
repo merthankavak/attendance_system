@@ -92,8 +92,8 @@ exports.editCourseSchedule = async (req, res) => {
         }
 
         for (let i = 0; i < dateArray.length; i++) {
-            currentCourse[i].attendance.date = dateArray[i];
-            currentCourse[i].attendance.time = timeArray[i];
+            currentCourse[i].attendance[i].date = dateArray[i];
+            currentCourse[i].attendance[i].time = timeArray[i];
         }
         await currentCourse.save();
         res.status(200).json({
