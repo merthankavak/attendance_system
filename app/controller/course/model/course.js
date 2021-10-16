@@ -81,7 +81,7 @@ CourseSchema.methods.generateRandomCourseCode = function () {
 };
 
 CourseSchema.methods.checkStudentAlreadyIn = function (id) {
-    this.students.include(id);
+    this.students.includes(id);
 };
 
 
