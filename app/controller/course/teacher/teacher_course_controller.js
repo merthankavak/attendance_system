@@ -82,7 +82,7 @@ exports.editCourseSchedule = async (req, res) => {
         let courseEndDate = req.body.courseEndDate; //20.03.2015
         let courseTimes = req.body.courseTimes; //09:00-12:00
         let currentCourse = await Course.findById(id);
-        let courseSchedule = [];
+        let courseScheduleArray = [];
         let timeArray = [];
         let dateArray = [];
         let startDate = moment(courseStartDate, 'DD-MM-YYYY');
@@ -94,12 +94,12 @@ exports.editCourseSchedule = async (req, res) => {
         }
 
         for (let i = 0; i < dateArray.length; i++) {
-            courseSchedule[i].date = dateArray[i];
-            courseSchedule[i].time = timeArray[i];
-
+            courseScheduleArray[i] = {};
+            courseScheduleArray[i].date = dateArray[i];
+            courseScheduleArray[i].time = timeArray[i];
         }
 
-        await currentCourse.attendance.push(courseSchedule);
+        currentCourse.attendance = courseScheduleArray;
         await currentCourse.save();
 
         res.status(200).json({
