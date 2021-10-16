@@ -81,8 +81,8 @@ exports.editCourseSchedule = async (req, res) => {
         const courseTimes = req.body.courseTimes; //09:00-12:00
 
         const currentCourse = await Course.findById(courseId);
-        const dateArray = [];
-        const timeArray = [];
+        let dateArray = [];
+        let timeArray = [];
         const startDate = moment(courseStartDate, 'DD-MM-YYYY');
         const endDate = moment(courseEndDate, 'DD-MM-YYYY');
         while (startDate <= endDate) {
