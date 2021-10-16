@@ -103,7 +103,7 @@ exports.editCourseSchedule = async (req, res) => {
             courseScheduleArray[i].date = dateArray[i];
             courseScheduleArray[i].time = timeArray[i];
         }
-
+       
         currentCourse.attendance = courseScheduleArray;
         await currentCourse.save();
 
