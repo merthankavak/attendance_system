@@ -58,14 +58,18 @@ const CourseSchema = mongoose.Schema({
             type: String,
             default: '0'
         },
-        studentList: [{
+        students: [{
+            _id: {
+                type: mongoose.Schema.Types.ObjectId,
+                refPath: 'Student'
+            },
             stdId: {
                 type: String,
-                ref: 'Student'
+                refPath: 'Student'
             },
             studentName: {
                 type: String,
-                ref: 'Student'
+                refPath: 'Student'
             },
             attendanceStatus: {
                 type: Boolean,
