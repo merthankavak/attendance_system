@@ -44,11 +44,12 @@ exports.joinCourse = async (req, res) => {
             message: 'Course does not exist.'
         });
 
-        await course.students.forEach((element) => {
-            if (element._id == id) return res.status(401).json({
+        const studentAlreadyIn = await course.students.find(id);
+        if (studentAlreadyIn == id) {
+            return res.status(401).json({
                 message: 'You have already enrolled this course.'
             });
-        });
+        }
         await course.students.push(student);
         await course.save();
 
