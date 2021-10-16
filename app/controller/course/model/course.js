@@ -40,11 +40,11 @@ const CourseSchema = mongoose.Schema({
             type: String,
             ref: 'Student'
         },
-        studentName: {
+        email: {
             type: String,
             ref: 'Student'
         },
-        email: {
+        studentName: {
             type: String,
             ref: 'Student'
         },
@@ -59,10 +59,6 @@ const CourseSchema = mongoose.Schema({
             default: '0'
         },
         studentList: [{
-            _id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Student'
-            },
             stdId: {
                 type: String,
                 ref: 'Student'
