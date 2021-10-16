@@ -51,9 +51,7 @@ exports.joinCourse = async (req, res) => {
             });
         }
 
-        const attendanceList = await Course.find({
-            attendance
-        });
+        const attendanceList = await Course.findOne(attendance);
         await course.students.push(student);
         for (let i = 0; i < attendanceList.length; i++) {
             attendanceList[i].students.push(student);
