@@ -53,24 +53,24 @@ const CourseSchema = mongoose.Schema({
         date: {
             type: String
         },
-        courseTime: [{
-            time: {
-                type: String
+        time: {
+            type: String
+        },
+        students: [{
+            stdId: {
+                type: String,
+                ref: 'Student'
             },
-            students: [{
-                stdId: {
-                    type: String,
-                    ref: 'Student'
-                },
-                studentName: {
-                    type: String,
-                    ref: 'Student'
-                },
-                attendanceStatus: {
-                    type: Boolean,
-                }
-            }]
+            studentName: {
+                type: String,
+                ref: 'Student'
+            },
+            attendanceStatus: {
+                type: Boolean,
+                default: false
+            }
         }]
+
     }],
 }, {
     collection: 'courses'
