@@ -81,8 +81,9 @@ exports.editCourseSchedule = async (req, res) => {
         let courseTimes = req.body.courseTimes; //09:00-12:00
 
         let currentCourse = await Course.findById(id);
-        let dateArray = [];
+        let courseSchedule = [];
         let timeArray = [];
+        let dateArray = [];
         let startDate = moment(courseStartDate, 'DD-MM-YYYY');
         let endDate = moment(courseEndDate, 'DD-MM-YYYY');
         while (startDate <= endDate) {
@@ -92,10 +93,14 @@ exports.editCourseSchedule = async (req, res) => {
         }
 
         for (let i = 0; i < dateArray.length; i++) {
-            currentCourse[i].attendance[i].date = dateArray[i];
-            currentCourse[i].attendance[i].time = timeArray[i];
+            courseSchedule[i].date = dateArray[i];
+            courseSchedule[i].time = timeArray[i];
+
         }
+        currentCourse.attendance = courseSchedule;
+
         await currentCourse.save();
+
         res.status(200).json({
             message: 'Course schedule successfully added'
         });
