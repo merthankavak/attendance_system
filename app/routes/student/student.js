@@ -38,7 +38,7 @@ router.post('/changepassword/:id', [
 ], Student.changePassword);
 
 //UPDATE
-router.put('/:id', upload, Student.update);
+router.post('/:id', upload, Student.update);
 
 //SHOW COURSE
 router.get('/course/:id', Course.show);
