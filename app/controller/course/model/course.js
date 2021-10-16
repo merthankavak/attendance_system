@@ -73,9 +73,10 @@ const CourseSchema = mongoose.Schema({
             },
             attendanceStatus: {
                 type: Boolean,
-                default: false
-            }
-        }]
+                default: false,
+                ref: 'Student'
+            },
+        }],
 
     }],
 }, {
