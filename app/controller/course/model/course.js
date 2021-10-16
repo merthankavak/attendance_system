@@ -59,25 +59,9 @@ const CourseSchema = mongoose.Schema({
             default: '0'
         },
         students: [{
-            _id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Student'
-            },
-            stdId: {
-                type: String,
-                ref: 'Student'
-            },
-            studentName: {
-                type: String,
-                ref: 'Student'
-            },
-            attendanceStatus: {
-                type: Boolean,
-                default: false,
-            },
-        }]
-
-
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Student'
+        }],
     }],
 });
 
