@@ -80,5 +80,9 @@ CourseSchema.methods.generateRandomCourseCode = function () {
     this.courseCode = generateCourseCode();
 };
 
+CourseSchema.methods.checkStudentAlreadyIn = function (id) {
+    this.students.include(id);
+};
+
 
 module.exports = mongoose.model('Course', CourseSchema);
