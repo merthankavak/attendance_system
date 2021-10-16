@@ -57,21 +57,21 @@ const CourseSchema = mongoose.Schema({
         students: [{
             stdId: {
                 type: String,
-                refPath: 'Student'
+                ref: 'Student'
             },
             email: {
                 type: String,
-                refPath: 'Student'
+                ref: 'Student'
             },
             studentName: {
                 type: String,
-                refPath: 'Student'
+                ref: 'Student'
             },
             attendanceStatus: {
                 type: Boolean,
-
-            }
-        }],
+            },
+            ref: 'Student'
+        }]
     }],
 }, {
     timestamps: true
