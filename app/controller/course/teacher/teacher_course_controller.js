@@ -1,5 +1,5 @@
 const Course = require('../model/course');
-const moment = require('moment');
+var moment = require('moment');
 const Teacher = require('../../login/model/teacher/teacher_model');
 // @route GET api/teacher/course/{id}
 // @desc Returns a specific course
@@ -75,11 +75,12 @@ exports.deleteCourse = async function (req, res) {
 // @access Public
 exports.editCourseSchedule = async (req, res) => {
     try {
+        // require
+        moment().format();
         let id = req.params.id;
         let courseStartDate = req.body.courseStartDate; //20.03.2014
         let courseEndDate = req.body.courseEndDate; //20.03.2015
         let courseTimes = req.body.courseTimes; //09:00-12:00
-
         let currentCourse = await Course.findById(id);
         let courseSchedule = [];
         let timeArray = [];
