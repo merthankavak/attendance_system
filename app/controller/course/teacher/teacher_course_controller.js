@@ -88,7 +88,7 @@ exports.editCourseSchedule = async (req, res) => {
         let startDate = moment(courseStartDate, 'DD-MM-YYYY');
         let endDate = moment(courseEndDate, 'DD-MM-YYYY');
         while (startDate <= endDate) {
-            dateArray.push(moment(startDate));
+            dateArray.push(moment(startDate).format('DD-MM-YYYY'));
             timeArray.push(courseTimes);
             startDate = moment(startDate).add(7, 'days');
         }

@@ -59,6 +59,10 @@ const CourseSchema = mongoose.Schema({
             default: '0'
         },
         students: [{
+            _id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Student'
+            },
             stdId: {
                 type: String,
                 ref: 'Student'
