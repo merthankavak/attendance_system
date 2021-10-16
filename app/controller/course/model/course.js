@@ -74,7 +74,6 @@ const CourseSchema = mongoose.Schema({
             attendanceStatus: {
                 type: Boolean,
                 default: false,
-                ref: 'Student'
             },
         }],
 
