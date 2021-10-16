@@ -17,7 +17,7 @@ const CourseSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    teacher: [{
+    teacher: {
         _id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Student'
@@ -30,7 +30,7 @@ const CourseSchema = mongoose.Schema({
             type: String,
             ref: 'Teacher'
         },
-    }],
+    },
     students: [{
         _id: {
             type: mongoose.Schema.Types.ObjectId,
