@@ -75,13 +75,13 @@ exports.deleteCourse = async function (req, res) {
 // @access Public
 exports.editCourseSchedule = async (req, res) => {
     try {
-        let courseId = req.params.courseId;
+        let id = req.params.id;
         let courseStartDate = req.body.courseStartDate; //20.03.2014
         let courseEndDate = req.body.courseEndDate; //20.03.2015
         let courseTimes = req.body.courseTimes; //09:00-12:00
 
         let currentCourse = await Course.findOne({
-            courseId
+            id
         });
         let dateArray = [];
         let timeArray = [];
