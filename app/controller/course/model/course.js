@@ -57,15 +57,15 @@ const CourseSchema = mongoose.Schema({
         students: [{
             stdId: {
                 type: String,
-                ref: 'Student.stdId'
+                refPath: 'Student'
             },
             email: {
                 type: String,
-                ref: 'Student.email'
+                refPath: 'Student'
             },
             studentName: {
                 type: String,
-                ref: 'Student.studentName'
+                refPath: 'Student'
             },
             attendanceStatus: {
                 type: Boolean,
@@ -73,6 +73,8 @@ const CourseSchema = mongoose.Schema({
             }
         }],
     }],
+}, {
+    timestamps: true
 });
 
 CourseSchema.methods.generateRandomCourseCode = function () {
