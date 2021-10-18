@@ -37,7 +37,7 @@ exports.uploadImage = async function (req, res) {
 
         const id = req.params.id;
 
-    
+
 
         const student = await Student.findOne({
             _id: id
@@ -49,9 +49,9 @@ exports.uploadImage = async function (req, res) {
 
         const studentImageArray = student.image;
 
-        for (let i = 0; i < req.files.length; i++) {
-            const newImage = Buffer(fs.readFileSync(req.file.path).toString('base64'), 'base64');
-            const newMimetype = req.file.mimetype;
+        for (let photo in req.files.photo) {
+            const newImage = Buffer(fs.readFileSync(req.files.photo.path).toString('base64'), 'base64');
+            const newMimetype = req.files.photo.mimetype;
             studentImageArray[i].mimetype = newMimetype;
             studentImageArray[i].imageByte = newImage;
         }
