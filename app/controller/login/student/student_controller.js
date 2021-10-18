@@ -47,17 +47,16 @@ exports.uploadImage = async function (req, res) {
             message: 'Student does not exist.'
         });
 
-        const studentImageArray = student.image;
-
+        let studentImages = [];
         for (let photo in req.files.photo) {
             studentImages[photo] = {};
             const newImage = Buffer(fs.readFileSync(req.files.photo.path).toString('base64'), 'base64');
             const newMimetype = req.files.photo.mimetype;
             studentImages[photo].mimetype = newMimetype;
             studentImages[photo].imageByte = newImage;
-            studentImageArray.push(studentImages[photo]);
-            await studentImageArray.save();
+
         }
+        student.image = studentImages;
         await student.save();
         res.status(200).json({
             message: 'Student image successfully added'
