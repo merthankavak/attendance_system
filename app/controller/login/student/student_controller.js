@@ -38,11 +38,7 @@ exports.uploadImage = async function (req, res) {
         const id = req.params.id;
         const newImage = Buffer(fs.readFileSync(req.file.path).toString('base64'), 'base64');
 
-        fs.remove(req.file.path, (error) => {
-            res.status(401).json({
-                message: error
-            });
-        });
+        await fs.remove(req.file.path);
 
         Student.findOneAndUpdate({
             id: id
