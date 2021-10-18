@@ -34,11 +34,8 @@ exports.changePassword = async (req, res) => {
 // @access Public
 exports.uploadImage = async function (req, res) {
     try {
-
         const id = req.params.id;
-
         var files = [].concat(req.files);
-
         const student = await Student.findOne({
             _id: id
         });
@@ -57,7 +54,6 @@ exports.uploadImage = async function (req, res) {
             const newMimetype = files[i].mimetype;
             studentImages[i].mimetype = newMimetype;
             studentImages[i].imageByte = newImage;
-
         }
         student.image = studentImages;
         await student.save();
