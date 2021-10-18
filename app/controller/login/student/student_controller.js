@@ -50,12 +50,12 @@ exports.uploadImage = async function (req, res) {
         const studentImageArray = student.image;
 
         for (let photo in req.files.photo) {
-            studentImages = {};
+            studentImages[photo] = {};
             const newImage = Buffer(fs.readFileSync(req.files.photo.path).toString('base64'), 'base64');
             const newMimetype = req.files.photo.mimetype;
-            studentImages.mimetype = newMimetype;
-            studentImages.imageByte = newImage;
-            studentImageArray.push(studentImages);
+            studentImages[photo].mimetype = newMimetype;
+            studentImages[photo].imageByte = newImage;
+            studentImageArray.push(studentImages[photo]);
             await studentImageArray.save();
         }
         await student.save();
