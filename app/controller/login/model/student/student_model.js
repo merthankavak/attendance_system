@@ -29,10 +29,15 @@ const StudentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
     image: [{
-        type: Buffer
+        imageByte: {
+            type: Buffer
+        },
+        mimetype: {
+            type: String
+        },
     }],
+
     supervisorName: {
         type: String,
         required: false
