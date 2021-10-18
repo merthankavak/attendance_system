@@ -19,7 +19,7 @@ const upload = multer({
         fileSize: 1024 * 1024 * 14
     },
     fileFilter: (req, file, cb) => {
-        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png')
+        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg')
             cb(null, true);
         else
             cb('Only jpeg/jpg or png files!', false);
@@ -38,7 +38,7 @@ router.post('/changepassword/:id', [
 ], Student.changePassword);
 
 //UPLOAD IMAGE
-router.post('/:id/uploadimage', upload.single('picture'), Student.uploadImage);
+router.post('/:id/uploadimage', upload.array('picture'), Student.uploadImage);
 
 //SHOW COURSE
 router.get('/course/:id', Course.show);

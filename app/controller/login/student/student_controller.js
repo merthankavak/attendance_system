@@ -34,7 +34,6 @@ exports.changePassword = async (req, res) => {
 // @access Public
 exports.uploadImage = async function (req, res) {
     try {
-        const newMimetype = req.file.mimetype;
         const id = req.params.id;
         const newImage = Buffer(fs.readFileSync(req.file.path).toString('base64'), 'base64');
 
@@ -48,7 +47,7 @@ exports.uploadImage = async function (req, res) {
             message: 'Student does not exist.'
         });
 
-        student.mimetype = newMimetype;
+
         student.image = newImage;
         await student.save();
         res.status(200).json({
