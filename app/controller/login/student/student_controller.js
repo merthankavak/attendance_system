@@ -37,7 +37,7 @@ exports.uploadImage = async function (req, res) {
 
         const id = req.params.id;
 
-        var files = [].concat(req.files.photo);
+        var files = [].concat(req.files);
 
         const student = await Student.findOne({
             _id: id
@@ -50,8 +50,8 @@ exports.uploadImage = async function (req, res) {
         let studentImages = [];
         for (let i = 0; i < files.length; i++) {
             studentImages[i] = {};
-            const newImage = Buffer(fs.readFileSync(req.files.photo.path).toString('base64'), 'base64');
-            const newMimetype = req.files.photo.mimetype;
+            const newImage = Buffer(fs.readFileSync(files[i].path).toString('base64'), 'base64');
+            const newMimetype = files[i].mimetype;
             studentImages[i].mimetype = newMimetype;
             studentImages[i].imageByte = newImage;
 
