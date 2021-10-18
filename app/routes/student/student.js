@@ -2,17 +2,17 @@ const express = require('express');
 const {
     check
 } = require('express-validator');
+const multer = require('multer');
 
 const Course = require('../../controller/course/student/student_course_controller');
 const Student = require('../../controller/login/student/student_controller');
-const multer = require('multer');
+
 const router = express.Router();
 
 const storage = multer.diskStorage({
     destination: './uploads/',
     filename: (req, file, cb) => cb(null, new Date().toISOString() + '-' + file.originalname)
 });
-
 const upload = multer({
     storage: storage,
     limits: {
@@ -37,8 +37,8 @@ router.post('/changepassword/:id', [
     }) => (value === req.body.password)),
 ], Student.changePassword);
 
-//UPDATE
-router.post('/:id', upload, Student.update);
+//UPLOAD IMAGE
+router.post('/:id/uploadimage', upload.single('picture'), Student.uploadImage);
 
 //SHOW COURSE
 router.get('/course/:id', Course.show);
