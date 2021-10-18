@@ -40,7 +40,9 @@ exports.uploadImage = async function (req, res) {
 
         await fs.remove(req.file.path);
 
-        const student = await Student.findOneById(id);
+        const student = await Student.findOne({
+            _id: id
+        });
 
         if (!student) return res.status(401).json({
             message: 'Student does not exist.'
