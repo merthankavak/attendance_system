@@ -40,21 +40,17 @@ exports.uploadImage = async function (req, res) {
 
         await fs.remove(req.file.path);
 
-        Student.findOneAndUpdate({
-            id: id
-        }, {
-            mimetype: newMimetype,
-            image: newImage
-        }, (err, student) => {
-            if (err) {
-                res.status(401).json({
-                    message: err.message
-                });
-            } else {
-                res.status(200).json({
-                    message: 'Student information updated successfully!'
-                });
-            }
+        const student = await Student.findOneById(id);
+
+        if (!student) return res.status(401).json({
+            message: 'Student does not exist.'
+        });
+
+        student.mimetype = newMimetype;
+        student.image = newImage;
+        await student.save();
+        res.status(200).json({
+            message: 'Student image successfully added'
         });
 
     } catch (error) {
