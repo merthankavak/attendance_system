@@ -37,7 +37,7 @@ exports.uploadImage = async function (req, res) {
 
         const id = req.params.id;
 
-        await fs.remove(req.file.path);
+    
 
         const student = await Student.findOne({
             _id: id
