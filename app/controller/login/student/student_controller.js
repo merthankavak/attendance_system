@@ -34,9 +34,8 @@ exports.changePassword = async (req, res) => {
 // @access Public
 exports.uploadImage = async function (req, res) {
     try {
-        const newMimetype = req.file.mimetype;
+
         const id = req.params.id;
-        const newImage = Buffer(fs.readFileSync(req.file.path).toString('base64'), 'base64');
 
         await fs.remove(req.file.path);
 
@@ -50,7 +49,9 @@ exports.uploadImage = async function (req, res) {
 
         const studentImageArray = student.image;
 
-        for (let i = 0; i < studentImageArray.length; i++) {
+        for (let i = 0; i < newMimetype.length; i++) {
+            const newImage = Buffer(fs.readFileSync(req.file.path).toString('base64'), 'base64');
+            const newMimetype = req.file.mimetype;
             studentImageArray[i].mimetype = newMimetype;
             studentImageArray[i].imageByte = newImage;
         }
