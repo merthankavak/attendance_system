@@ -46,6 +46,9 @@ exports.uploadImage = async function (req, res) {
         if (!student) return res.status(401).json({
             message: 'Student does not exist.'
         });
+        if (files.length < 3) return res.status(401).json({
+            message: 'You must upload at least 3 image'
+        });
 
         let studentImages = [];
         for (let i = 0; i < files.length; i++) {
@@ -59,7 +62,7 @@ exports.uploadImage = async function (req, res) {
         student.image = studentImages;
         await student.save();
         res.status(200).json({
-            message: 'Student image successfully added'
+            message: 'Student image successfully uploaded'
         });
 
     } catch (error) {
