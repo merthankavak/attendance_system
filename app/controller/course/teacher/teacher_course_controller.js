@@ -170,8 +170,10 @@ exports.checkAttendance = async (req, res) => {
                         let similarity = data.Similarity
                         if (similarity >= 70) {
                             studentsArray[i].attendanceStatus = true;
+                            await currentCourse.save();
                         } else {
                             studentsArray[i].attendanceStatus = false;
+                            await currentCourse.save();
                         }
                         console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`)
                     })
