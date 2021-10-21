@@ -149,7 +149,7 @@ exports.checkAttendance = async (req, res) => {
         var image = Buffer(fs.readFileSync(file.path).toString('base64'), 'base64');
 
         let studentsArray = currentCourse.attendance[0].students;
-        let foundStudent = [];
+
         for (let i = 0; i < studentsArray.length; i++) {
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
@@ -163,21 +163,20 @@ exports.checkAttendance = async (req, res) => {
                     Bytes: studentImageArray[0].imageByte
                 }
             }).promise();
-            for (let i = 0; i < faceData.length; i++) {
 
-                foundStudent[i] = {};
-                let position = faceData[i].Face.BoundingBox
-                let similarity = faceData[i].Similarity
+            faceData.FaceMatches.forEach((data) => {
+
+                let position = data.Face.BoundingBox
+                let similarity = data.Similarity
                 if (similarity >= 70) {
-                    foundStudent[i].attendanceStatus = true;
+                    studentsArray[i].attendanceStatus = true;
                 } else {
-                    foundStudent[i].attendanceStatus = false;
+                    studentsArray[i].attendanceStatus = false;
                 }
                 console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`)
-            }
+            });
         }
-
-        student.attendanceStatus = foundStudent;
+        
         await student.save();
         res.status(200).json({
             message: 'Attendance for the course was successfully taken.'
