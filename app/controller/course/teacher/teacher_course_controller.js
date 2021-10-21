@@ -165,24 +165,24 @@ exports.checkAttendance = async (req, res) => {
                 }
             }).promise();
 
+            let foundStudent = [];
 
             for (let i = 0; i < faceData.length; i++) {
+
+                foundStudent[i] = {};
                 let position = faceData[i].Face.BoundingBox
                 let similarity = faceData[i].Similarity
                 if (similarity >= 70) {
-                    studentsArray[i].attendanceStatus = true;
-                    await currentCourse.save();
+                    foundStudent[i].attendanceStatus = true;
                 } else {
-                    studentsArray[i].attendanceStatus = false;
-                    await currentCourse.save();
+                    foundStudent[i].attendanceStatus = false;
                 }
-
                 console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`)
             }
         }
-
-
-
+        
+        student.attendanceStatus = foundStudent;
+        await student.save();
         res.status(200).json({
             message: 'Attendance for the course was successfully taken.'
         });
