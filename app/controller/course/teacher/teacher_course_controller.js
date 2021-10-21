@@ -146,7 +146,7 @@ exports.checkAttendance = async (req, res) => {
             message: 'Please select a picture to submit'
         });
 
-        const image = Buffer(fs.readFileSync(file.path).toString('base64'), 'base64');
+        var image = Buffer(fs.readFileSync(file.path).toString('base64'), 'base64');
 
         let studentsArray = currentCourse.attendance[0].students;
 
@@ -163,10 +163,10 @@ exports.checkAttendance = async (req, res) => {
                     Bytes: studentImageArray[0].imageByte
                 }
             }).promise();
-
-            faceData.FaceMatches.forEach(async (data) => {
-                let position = data.Face.BoundingBox
-                let similarity = data.Similarity
+            var faceDataArray = [].concat(faceData);
+            for (let i = 0; i < faceDataArray.length; i++) {
+                let position = faceDataArray[i].Face.BoundingBox
+                let similarity = faceDataArray[i].Similarity
                 if (similarity >= 70) {
                     studentsArray[i].attendanceStatus = true;
                 } else {
@@ -174,7 +174,7 @@ exports.checkAttendance = async (req, res) => {
                 }
                 await currentCourse.save();
                 console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`)
-            });
+            }
         }
 
 
