@@ -4,9 +4,7 @@ var moment = require('moment');
 const Teacher = require('../../login/model/teacher/teacher_model');
 
 const AWS = require('aws-sdk');
-AWS.config.update({
-    region: 'us-east-2'
-});
+
 const rekognition = new AWS.Rekognition();
 
 // @route GET api/teacher/course/{id}
