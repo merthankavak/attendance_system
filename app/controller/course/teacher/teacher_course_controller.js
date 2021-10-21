@@ -162,7 +162,7 @@ exports.checkAttendance = async (req, res) => {
                 SourceImage: {
                     Bytes: studentImageArray[0].imageByte
                 }
-            });
+            }).promise();
 
             faceData.FaceMatches.forEach(data => {
                 let position = data.Face.BoundingBox
