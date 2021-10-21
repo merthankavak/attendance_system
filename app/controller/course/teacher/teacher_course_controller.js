@@ -159,8 +159,8 @@ exports.checkAttendance = async (req, res) => {
                 }
             });
             var imageDataResponse = imageData.FaceMatches;
-        
-            if (imageDataResponse >= 70) {
+
+            if (imageDataResponse.Similarity >= 70) {
                 studentsArray[i].attendanceStatus = true;
             } else {
                 studentsArray[i].attendanceStatus = false;
