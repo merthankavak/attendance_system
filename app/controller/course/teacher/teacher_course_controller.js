@@ -2,6 +2,7 @@ const Course = require('../model/course');
 const Student = require('../../login/model/student/student_model');
 var moment = require('moment');
 const Teacher = require('../../login/model/teacher/teacher_model');
+const fs = require('fs-extra');
 
 const AWS = require('aws-sdk');
 
