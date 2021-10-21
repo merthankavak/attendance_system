@@ -151,6 +151,7 @@ exports.checkAttendance = async (req, res) => {
         let studentsArray = currentCourse.attendance[0].students;
 
         for (let i = 0; i < studentsArray.length; i++) {
+
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
             var studentImageArray = student.image;
@@ -163,10 +164,11 @@ exports.checkAttendance = async (req, res) => {
                     Bytes: studentImageArray[0].imageByte
                 }
             }).promise();
-            var faceDataArray = [].concat(faceData);
-            for (let i = 0; i < faceDataArray.length; i++) {
-                let position = faceDataArray[i].Face.BoundingBox
-                let similarity = faceDataArray[i].Similarity
+
+
+            for (let i = 0; i < faceData.length; i++) {
+                let position = faceData[i].Face.BoundingBox
+                let similarity = faceData[i].Similarity
                 if (similarity >= 70) {
                     studentsArray[i].attendanceStatus = true;
                 } else {
