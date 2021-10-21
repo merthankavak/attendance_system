@@ -164,7 +164,7 @@ exports.checkAttendance = async (req, res) => {
                 }
             }).promise();
 
-            faceData.FaceMatches.forEach((data) => {
+            faceData.FaceMatches.forEach(async (data) => {
 
                 let position = data.Face.BoundingBox;
                 let similarity = data.Similarity;
