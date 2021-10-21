@@ -154,7 +154,7 @@ exports.checkAttendance = async (req, res) => {
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
             var studentImageArray = student.image;
-            var faceData = await rekognition.compareFaces({
+            var facesData = await rekognition.compareFaces({
                 SimilarityThreshold: 70,
                 TargetImage: {
                     Bytes: image
@@ -162,7 +162,8 @@ exports.checkAttendance = async (req, res) => {
                 SourceImage: {
                     Bytes: studentImageArray[0].imageByte
                 }
-            });
+            }).promise();
+            var faceData = [].concat(facesData);
 
             faceData.FaceMatches.forEach((data) => {
 
@@ -176,7 +177,6 @@ exports.checkAttendance = async (req, res) => {
                 console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`)
             });
         }
-
         await student.save();
         res.status(200).json({
             message: 'Attendance for the course was successfully taken.'
