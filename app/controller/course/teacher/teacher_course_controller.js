@@ -154,7 +154,7 @@ exports.checkAttendance = async (req, res) => {
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
             var studentImageArray = student.image;
-            await rekognition.compareFaces({
+            var faceData = await rekognition.compareFaces({
                 SimilarityThreshold: 70,
                 TargetImage: {
                     Bytes: image
@@ -162,27 +162,23 @@ exports.checkAttendance = async (req, res) => {
                 SourceImage: {
                     Bytes: studentImageArray[0].imageByte
                 }
-            }, async (err, response) => {
-                if (err) {
-                    console.log(err, err.stack);
-                } else {
-                    response.FaceMatches.forEach(data => {
-                        let position = data.Face.BoundingBox
-                        let similarity = data.Similarity
-                        if (similarity >= 70) {
-                            studentsArray[i].attendanceStatus = true;
-                            await currentCourse.save();
-                        } else {
-                            studentsArray[i].attendanceStatus = false;
-                            await currentCourse.save();
-                        }
-                        console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`)
-                    })
-                }
             });
 
-            await currentCourse.save();
+            faceData.FaceMatches.forEach(data => {
+                let position = data.Face.BoundingBox
+                let similarity = data.Similarity
+                if (similarity >= 70) {
+                    studentsArray[i].attendanceStatus = true;
+                    await currentCourse.save();
+                } else {
+                    studentsArray[i].attendanceStatus = false;
+                    await currentCourse.save();
+                }
+                console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`)
+            });
         }
+        await currentCourse.save();
+
 
         res.status(200).json({
             message: 'Attendance for the course was successfully taken.'
