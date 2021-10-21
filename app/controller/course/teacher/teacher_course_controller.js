@@ -151,7 +151,7 @@ exports.checkAttendance = async (req, res) => {
                 id: studentId
             });
             var studentImage = student.image;
-            var imageData = rekognition.compareFaces({
+            var imageData = await rekognition.compareFaces({
                 SimilarityThreshold: 70,
                 TargetImage: {
                     Bytes: image
@@ -162,7 +162,10 @@ exports.checkAttendance = async (req, res) => {
             });
             if (imageData.FaceMatches.length > 0) {
                 studentsArray[i].attendanceStatus = true;
-            } else studentsArray[i].attendanceStatus = false;
+            } else {
+                studentsArray[i].attendanceStatus = false;
+            }
+            await currentCourse.save();
         }
 
         res.status(200).json({
