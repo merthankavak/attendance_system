@@ -5,7 +5,7 @@ const Teacher = require('../../login/model/teacher/teacher_model');
 const fs = require('fs-extra');
 
 const AWS = require('aws-sdk');
-
+AWS.config.update({ region: 'us-east-2' });
 const rekognition = new AWS.Rekognition();
 
 // @route GET api/teacher/course/{id}
