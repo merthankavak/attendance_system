@@ -9,7 +9,7 @@ const config = new AWS.Config({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: process.env.AWS_REGION
-  })
+})
 const rekognition = new AWS.Rekognition();
 
 // @route GET api/teacher/course/{id}
@@ -161,7 +161,7 @@ exports.checkAttendance = async (req, res) => {
                 SourceImage: {
                     Bytes: studentImageArray[0].imageByte
                 }
-            }, function (err, response) {
+            }, async function (err, response) {
                 if (err) {
                     console.log(err, err.stack);
                 } else {
