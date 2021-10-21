@@ -158,7 +158,7 @@ exports.checkAttendance = async (req, res) => {
                     Bytes: studentImageArray[0].imageByte
                 }
             });
-            if (imageData.FaceMatches.length > 0) {
+            if (imageData.FaceMatch.length > 0) {
                 studentsArray[i].attendanceStatus = true;
             } else {
                 studentsArray[i].attendanceStatus = false;
