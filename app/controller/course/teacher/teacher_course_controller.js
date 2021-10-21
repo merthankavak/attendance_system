@@ -162,7 +162,7 @@ exports.checkAttendance = async (req, res) => {
                 SourceImage: {
                     Bytes: studentImageArray[0].imageByte
                 }
-            }).promise();
+            });
 
             faceData.FaceMatches.forEach((data) => {
 
@@ -176,7 +176,7 @@ exports.checkAttendance = async (req, res) => {
                 console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`)
             });
         }
-        
+
         await student.save();
         res.status(200).json({
             message: 'Attendance for the course was successfully taken.'
