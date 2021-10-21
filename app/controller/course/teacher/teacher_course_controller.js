@@ -150,7 +150,7 @@ exports.checkAttendance = async (req, res) => {
 
         let studentsArray = currentCourse.attendance[0].students;
 
-        async.each(studentArray, (i, callback)) => {
+        for (let i = 0; i < studentsArray.length; i++) {
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
             var studentImageArray = student.image;
