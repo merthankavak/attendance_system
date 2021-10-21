@@ -158,10 +158,9 @@ exports.checkAttendance = async (req, res) => {
                     Bytes: studentImageArray[0].imageByte
                 }
             });
-            imageData.FaceMatches.forEach(data => {
-                let similarity = data.Similarity
-            });
-            if (similarity >= 70) {
+            var imageDataResponse = imageData.FaceMatches;
+        
+            if (imageDataResponse >= 70) {
                 studentsArray[i].attendanceStatus = true;
             } else {
                 studentsArray[i].attendanceStatus = false;
