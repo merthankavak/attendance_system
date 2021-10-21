@@ -149,9 +149,8 @@ exports.checkAttendance = async (req, res) => {
         var image = Buffer(fs.readFileSync(file.path).toString('base64'), 'base64');
 
         let studentsArray = currentCourse.attendance[0].students;
-
+        let foundStudent = [];
         for (let i = 0; i < studentsArray.length; i++) {
-
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
             var studentImageArray = student.image;
@@ -164,9 +163,6 @@ exports.checkAttendance = async (req, res) => {
                     Bytes: studentImageArray[0].imageByte
                 }
             }).promise();
-
-            let foundStudent = [];
-
             for (let i = 0; i < faceData.length; i++) {
 
                 foundStudent[i] = {};
@@ -180,7 +176,7 @@ exports.checkAttendance = async (req, res) => {
                 console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`)
             }
         }
-        
+
         student.attendanceStatus = foundStudent;
         await student.save();
         res.status(200).json({
