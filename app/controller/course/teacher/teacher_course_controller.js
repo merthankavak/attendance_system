@@ -173,7 +173,7 @@ exports.checkAttendance = async (req, res) => {
                 } else {
                     studentsArray[i].attendanceStatus = false;
                 }
-                await student.save();
+                await studentsArray.save();
                 console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`);
             });
         }
