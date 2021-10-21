@@ -25,6 +25,9 @@ router.get('/course/:id', Course.show);
 //ADD COURSE
 router.post('/course/addcourse', Course.addCourse);
 
+//CHECK ATTENDANCE 
+router.post('/course/:id/checkattendance', Course.checkAttendance);
+
 //EDIT COURSE SCHEDULE
 router.post('/course/:id/editschedule', Course.editCourseSchedule);
 

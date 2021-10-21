@@ -2,6 +2,13 @@ const Course = require('../model/course');
 const Student = require('../../login/model/student/student_model');
 var moment = require('moment');
 const Teacher = require('../../login/model/teacher/teacher_model');
+
+const AWS = require('aws-sdk');
+AWS.config.update({
+    region: 'us-east-2'
+});
+const rekognition = new AWS.Rekognition();
+
 // @route GET api/teacher/course/{id}
 // @desc Returns a specific course
 // @access Public
@@ -72,7 +79,7 @@ exports.deleteCourse = async function (req, res) {
 };
 
 // @route POST api/teacher/course/{id}/editschedule
-// @desc Delete course
+// @desc Edit course schedule
 // @access Public
 exports.editCourseSchedule = async (req, res) => {
     try {
@@ -104,12 +111,63 @@ exports.editCourseSchedule = async (req, res) => {
             courseScheduleArray[i].date = dateArray[i];
             courseScheduleArray[i].time = timeArray[i];
         }
-       
+
         currentCourse.attendance = courseScheduleArray;
         await currentCourse.save();
 
         res.status(200).json({
             message: 'Course schedule successfully added'
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+};
+
+// @route POST api/teacher/course/{id}/checkattendance
+// @desc Check course attendance
+// @access Public
+exports.checkAttendance = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let currentCourse = await Course.findById(id);
+        if (!currentCourse) res.status(401).json({
+            message: 'Course not found'
+        });
+
+        var file = req.file;
+        if (!file) return res.status(401).json({
+            message: 'Please select a picture to submit'
+        });
+
+        const image = Buffer(fs.readFileSync(file.path).toString('base64'), 'base64');
+
+        let studentsArray = currentCourse.attendance.students;
+
+        for (let i = 0; i < studentsArray.length; i++) {
+            var studentId = studentsArray[i].id;
+            var student = await Student.find({
+                id: studentId
+            });
+            var studentImage = student.image;
+            var imageData = rekognition.compareFaces({
+                SimilarityThreshold: 70,
+                TargetImage: {
+                    Bytes: image
+                },
+                SourceImage: {
+                    Bytes: studentImage[0]
+                }
+            });
+            if (imageData.FaceMatches.length > 0) {
+                studentsArray[i].attendanceStatus = true;
+            } else studentsArray[i].attendanceStatus = false;
+        }
+
+        res.status(200).json({
+            message: 'Attendance for the course was successfully taken.'
         });
 
     } catch (error) {
