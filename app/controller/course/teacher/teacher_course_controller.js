@@ -144,7 +144,7 @@ exports.checkAttendance = async (req, res) => {
 
         const image = Buffer(fs.readFileSync(file.path).toString('base64'), 'base64');
 
-        let studentsArray = currentCourse.attendance.students;
+        let studentsArray = currentCourse.attendance[0].students;
 
         for (let i = 0; i < studentsArray.length; i++) {
             var studentId = studentsArray[i].id;
