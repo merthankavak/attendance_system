@@ -3,6 +3,7 @@ const Student = require('../../login/model/student/student_model');
 var moment = require('moment');
 const Teacher = require('../../login/model/teacher/teacher_model');
 const fs = require('fs-extra');
+var async = require("async");
 
 const AWS = require('aws-sdk');
 const config = new AWS.Config({
@@ -149,7 +150,7 @@ exports.checkAttendance = async (req, res) => {
 
         let studentsArray = currentCourse.attendance[0].students;
 
-        for (let i = 0; i < studentsArray.length; i++) {
+        async.each(studentArray, (i, callback)) => {
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
             var studentImageArray = student.image;
@@ -161,7 +162,7 @@ exports.checkAttendance = async (req, res) => {
                 SourceImage: {
                     Bytes: studentImageArray[0].imageByte
                 }
-            }, async function (err, response) {
+            }, (err, response) => {
                 if (err) {
                     console.log(err, err.stack);
                 } else {
@@ -170,10 +171,10 @@ exports.checkAttendance = async (req, res) => {
                         let similarity = data.Similarity
                         if (similarity >= 70) {
                             studentsArray[i].attendanceStatus = true;
-                             currentCourse.save();
+                            currentCourse.save();
                         } else {
                             studentsArray[i].attendanceStatus = false;
-                             currentCourse.save();
+                            currentCourse.save();
                         }
                         console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`)
                     })
