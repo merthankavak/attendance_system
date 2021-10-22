@@ -173,8 +173,10 @@ exports.checkAttendance = async (req, res) => {
                 if (faceData.FaceMatches.length > 0) {
                     studentsArray[i].attendanceStatus = true;
                 }
-                await currentCourse.save();
+
             }
+
+            await currentCourse.save();
 
 
 
