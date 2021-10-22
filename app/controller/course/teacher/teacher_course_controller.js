@@ -163,7 +163,16 @@ exports.checkAttendance = async (req, res) => {
                     Bytes: studentImageArray[0].imageByte
                 }
             }).promise();
+            if (faceData.FaceMatches.length > 0) {
+                studentsArray[i].attendanceStatus = true;
+            } else {
+                studentsArray[i].attendanceStatus = false;
+            }
+            await currentCourse.save();
+            console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`);
 
+
+            /*
             faceData.FaceMatches.forEach(async (data) => {
 
                 let position = data.Face.BoundingBox;
@@ -176,6 +185,7 @@ exports.checkAttendance = async (req, res) => {
                 await currentCourse.save();
                 console.log(`The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`);
             });
+            */
         }
         res.status(200).json({
             message: 'Attendance for the course was successfully taken.'
