@@ -153,7 +153,7 @@ async function sendVerificationEmail(student, req, res) {
             to,
             from,
             replyTo,
-            templateId: 'd-0eaea82743e644e58b12bdb99444b00e',
+            templateId: process.env.VERIFY_EMAIL_TEMPLATEID,
             dynamicTemplateData: {
                 subject: "Account Verification",
                 fullname: fullName,

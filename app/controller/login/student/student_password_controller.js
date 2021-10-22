@@ -29,7 +29,7 @@ exports.recover = async (req, res) => {
         await sendEmail({
             to,
             from,
-            templateId: 'd-e76c2a240f324b2397b8beb3e9b2b0e9',
+            templateId: process.env.RESET_PASSWORD_TEMPLATEID,
             dynamicTemplateData: {
                 fullname: fullName,
                 subject: "Password Change Request",
