@@ -167,7 +167,7 @@ exports.checkAttendance = async (req, res) => {
                     Bytes: image
                 },
                 SourceImage: {
-                    Bytes: imageArray
+                    Bytes: imageArray[0]
                 }
             }).promise();
 
