@@ -155,7 +155,7 @@ exports.checkAttendance = async (req, res) => {
             var student = await Student.findById(studentId);
             var studentImageArray = [];
             studentImageArray = student.image;
-            var imageArray = [];
+            var imageArray ;
 
             for (let j = 0; j < studentImageArray.length; j++) {
                 var item = studentImageArray[j].imageByte;
