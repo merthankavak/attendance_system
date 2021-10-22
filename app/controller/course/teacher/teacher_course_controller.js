@@ -156,17 +156,20 @@ exports.checkAttendance = async (req, res) => {
             var studentImageArray = [];
             studentImageArray = student.image;
             var imageArray = [];
-            
+
             rekognition.createCollection({
                 CollectionId: studentId
-            });
+            }).promise();
 
             for (let j = 0; j < studentImageArray.length; j++) {
                 imageArray[j] = studentImageArray[j].imageByte;
             }
 
-            for (let k = 0; k  < imageArray.length; k++) {
-                rekognition.indexFaces(studentId, imageArray[k]);
+            for (let k = 0; k < imageArray.length; k++) {
+                rekognition.indexFaces({
+                    CollectionId: studentId,
+                    Image: imageArray[k]
+                }).promise();
             }
 
             var faceData = await rekognition.searchFacesByImage({
