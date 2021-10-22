@@ -149,14 +149,19 @@ exports.checkAttendance = async (req, res) => {
         var image = Buffer(fs.readFileSync(file.path).toString('base64'), 'base64');
 
         let studentsArray = currentCourse.attendance[0].students;
-        var imageByteArray = [];
+        //var imageByteArray = [];
 
-        for (let i = 0; i < studentsArray.length; i++) {
+
+        var i, j, imageByteArray = [];
+        if (!imageByteArray[i]) imageByteArray[i] = [];
+
+
+        for (i = 0; i < studentsArray.length; i++) {
 
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
             var studentImageArray = student.image;
-            for (let j = 0; j < studentImageArray.length; j++) {
+            for (j = 0; j < studentImageArray.length; j++) {
                 imageByteArray[i][j] = studentImageArray[j].imageByte;
             }
 
