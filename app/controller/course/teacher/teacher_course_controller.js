@@ -156,36 +156,27 @@ exports.checkAttendance = async (req, res) => {
             var studentImageArray = [];
             studentImageArray = student.image;
             var imageArray = [];
-
-            rekognition.createCollection({
-                CollectionId: studentId
-            }).promise();
-
             for (let j = 0; j < studentImageArray.length; j++) {
-                imageArray[j] = studentImageArray[j].imageByte;
+                imageArray.push = studentImageArray[j].imageByte;
             }
-
             for (let k = 0; k < imageArray.length; k++) {
-                rekognition.indexFaces({
-                    CollectionId: studentId,
-                    Image: imageArray[k]
+                var faceData = await rekognition.compareFaces({
+                    SimilarityThreshold: 70,
+                    TargetImage: {
+                        Bytes: image
+                    },
+                    SourceImage: {
+                        Bytes: imageArray[k]
+                    }
                 }).promise();
+                if (faceData.FaceMatches.length > 0) {
+                    studentsArray[i].attendanceStatus = true;
+                }
+                await currentCourse.save();
             }
 
-            var faceData = await rekognition.searchFacesByImage({
-                CollectionId: studentId,
-                FaceMatchThreshold: 70,
-                Image: {
-                    Bytes: image
-                },
-            }).promise();
 
-            if (faceData.FaceMatches.length > 0) {
-                studentsArray[i].attendanceStatus = true;
-            } else {
-                studentsArray[i].attendanceStatus = false;
-            }
-            await currentCourse.save();
+
         }
         res.status(200).json({
             message: 'Attendance for the course was successfully taken.'
