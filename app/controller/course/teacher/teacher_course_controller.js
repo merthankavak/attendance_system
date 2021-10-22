@@ -155,8 +155,9 @@ exports.checkAttendance = async (req, res) => {
             var student = await Student.findById(studentId);
             var studentImageArray = [];
             studentImageArray = student.image;
+            var imageArray = [];
             for (let j = 0; j < studentImageArray.length; j++) {
-                studentImageArray[i][j] = studentImageArray[j].imageByte;
+                imageArray[i] = studentImageArray[j].imageByte;
             }
 
             var faceData = await rekognition.compareFaces({
@@ -165,7 +166,7 @@ exports.checkAttendance = async (req, res) => {
                     Bytes: image
                 },
                 SourceImage: {
-                    Bytes: imageByteArray[0][0]
+                    Bytes: imageArray[i]
                 }
             }).promise();
 
