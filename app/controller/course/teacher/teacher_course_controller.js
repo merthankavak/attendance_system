@@ -149,18 +149,24 @@ exports.checkAttendance = async (req, res) => {
         var image = Buffer(fs.readFileSync(file.path).toString('base64'), 'base64');
 
         let studentsArray = currentCourse.attendance[0].students;
+        let imageByteArray = [];
 
         for (let i = 0; i < studentsArray.length; i++) {
+
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
             var studentImageArray = student.image;
+            for (let j = 0; j < studentImageArray.length; j++) {
+                imageByteArray[i][j] = student.image[j].imageByte;
+            }
+
             var faceData = await rekognition.compareFaces({
                 SimilarityThreshold: 70,
                 TargetImage: {
                     Bytes: image
                 },
                 SourceImage: {
-                    Bytes: studentImageArray
+                    Bytes: imageByteArray[i]
                 }
             }).promise();
             if (faceData.FaceMatches.length > 0) {
