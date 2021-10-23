@@ -166,7 +166,7 @@ exports.checkAttendance = async (req, res) => {
                         Bytes: image
                     },
                     SourceImage: {
-                        Bytes: Buffer(fs.readFileSync(imageArray[k]).toString('base64'), 'base64')
+                        Bytes: imageArray[k]
                     }
                 }).promise();
                 if (faceData.FaceMatches.length > 0) {
