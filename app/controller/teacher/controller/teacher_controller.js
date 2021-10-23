@@ -14,7 +14,7 @@ exports.changePassword = async (req, res) => {
             });
         }
 
-        teacher.password = pass;
+        teacher.password = password;
         await teacher.save();
 
         return res.status(200).json({
