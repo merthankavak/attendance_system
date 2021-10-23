@@ -166,7 +166,7 @@ exports.checkAttendance = async (req, res) => {
                         Bytes: image
                     },
                     SourceImage: {
-                        Bytes: imageArray[k]
+                        Bytes: imageArray[0]
                     }
                 }).promise();
                 if (faceData.FaceMatches.length > 0) {
