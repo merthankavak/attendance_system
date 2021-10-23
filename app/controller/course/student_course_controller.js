@@ -45,7 +45,7 @@ exports.joinCourse = async (req, res) => {
     }
 };
 
-// @route GET api/student/course/{id}
+// @route GET api/student/course/:id
 // @desc Return course 
 // @access Public
 exports.show = async function (req, res) {

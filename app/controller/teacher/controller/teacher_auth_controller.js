@@ -1,5 +1,5 @@
 const Teacher = require('../model/teacher_model');
-const TeacherToken = require('../model/teacher/teacher_token_model');
+const TeacherToken = require('../model/teacher_token_model');
 
 const {
     sendEmail
