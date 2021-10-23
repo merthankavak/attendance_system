@@ -149,7 +149,7 @@ exports.checkAttendance = async (req, res) => {
             message: 'You must upload at least one image'
         });
 
-        var imageByte = Buffer(fs.readFileSync(file.path).toString('base64'), 'base64');
+        var imageByte = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
         let studentsArray = currentCourse.attendance[0].students;
 
         for (let i = 0; i < studentsArray.length; i++) {
