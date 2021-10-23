@@ -1,34 +1,24 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const passportForTeacher = require('passport');
-const passportForStudent = require('passport');
+const teacherPassport = require('passport');
+const studentPassport = require('passport');
 const path = require('path');
-require('dotenv').config();
-const data = require('./util/data');
-
-const {
-    mongoURI,
-    port
-} = data;
-
 const app = express();
+require('dotenv').config();
 
-app.use(bodyParser.urlencoded({
-    extended: false
+app.use(express.urlencoded({
+    extended: true
 }));
-
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
 mongoose.Promise = global.Promise;
-mongoose.connect(mongoURI, {
+mongoose.connect(process.env.MONGOURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -40,11 +30,10 @@ connection.on('error', (err) => {
     process.exit();
 });
 
-app.use(passportForStudent.initialize());
-app.use(passportForTeacher.initialize());
-require("./middlewares/student/jwt")(passportForStudent);
-require("./middlewares/teacher/jwt")(passportForTeacher);
-require('./routes/index')(app);
+app.use(studentPassport.initialize());
+app.use(teacherPassport.initialize());
+require("./middlewares/jwt/student_jwt")(studentPassport);
+require("./middlewares/jwt/teacher_jwt")(teacherPassport);
+require('./routes/index_route')(app);
 
-
-app.listen(port, () => console.log('Server is running on https://localhost:' + port + '/'));
+app.listen(process.env.PORT, () => console.log('Server is running on ' + process.env.PORT));
