@@ -59,7 +59,7 @@ exports.update = async function (req, res) {
 
         } else {
             //Image only
-            if (newName.length < 0) {
+            if (!newName) {
                 const studentNewImage = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
                 const studentNewFileType = image.mimetype;
 
