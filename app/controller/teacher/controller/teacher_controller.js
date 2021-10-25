@@ -27,3 +27,35 @@ exports.changePassword = async (req, res) => {
         })
     }
 };
+
+// @route POST api/teacher/update/:id
+// @desc Teacher Update
+exports.update = async function (req, res) {
+    try {
+        const id = req.params.id;
+        const newName = req.body.teacherName;
+
+        const teacher = await Teacher.findById(id);
+
+        if (!teacher) return res.status(401).json({
+            message: 'Teacher does not exist'
+        });
+
+        if (newName == teacher.teacherName) return res.status(401).json({
+            message: 'Same as previous name!'
+        });
+
+        teacher.teacherName = newName;
+
+        await teacher.save();
+
+        res.status(200).json({
+            message: 'Name successfully updated'
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};

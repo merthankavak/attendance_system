@@ -34,7 +34,7 @@ router.post('/changepassword/:id', [
     }) => (value === req.body.password)),
 ], Student.changePassword);
 
-//Student Upload Image
+//Student Update
 router.post('/update/:id', upload.single('image'), Student.update);
 
 //Student Get Course

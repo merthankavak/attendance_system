@@ -26,13 +26,16 @@ const upload = multer({
     }
 });
 
-//Teacher Update Password
+//Teacher Change Password
 router.post('/changepassword/:id', [
     check('password').not().isEmpty().withMessage('Password can not be empty'),
     check('confirmPassword', 'Passwords do not match').custom((value, {
         req
     }) => (value === req.body.password)),
 ], Teacher.changePassword);
+
+//Teacher Update
+router.post('/update/:id', Teacher.update);
 
 //Teacher Get Course
 router.get('/course/:id', Course.show);
