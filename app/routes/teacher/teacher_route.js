@@ -50,6 +50,6 @@ router.post('/course/addschedule/:id', Course.addCourseSchedule);
 router.post('/course/checkattendance/:id', upload.single('image'), Course.checkAttendance);
 
 //Teacher Course Update
-router.post('/update/:id', Course.update);
+router.post('/course/update/:id', Course.update);
 
 module.exports = router;
