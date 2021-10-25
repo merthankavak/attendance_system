@@ -43,4 +43,7 @@ router.get('/course/:id', Course.show);
 //Student Join Course
 router.post('/course/joincourse', Course.joinCourse);
 
+//Student Leave Course
+router.delete('/course/leave/:id', Course.leaveCourse);
+
 module.exports = router;

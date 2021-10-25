@@ -41,7 +41,7 @@ exports.addCourse = async (req, res) => {
     }
 };
 
-// @route DELETE api/teacher/course/deletecourse/{id}
+// @route DELETE api/teacher/course/deletecourse/:id
 // @desc Delete course
 // @access Public
 exports.deleteCourse = async function (req, res) {

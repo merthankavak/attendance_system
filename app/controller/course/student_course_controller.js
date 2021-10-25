@@ -45,6 +45,28 @@ exports.joinCourse = async (req, res) => {
     }
 };
 
+// @route DELETE api/student/course/leave/:id
+// @desc Leave course
+// @access Public
+exports.leaveCourse = async function (req, res) {
+    try {
+        const id = req.params.id;
+        const courseId = req.body.courseId;
+        const course = await Course.findById(courseId);
+
+        await course.students.findByIdAndDelete(id);
+
+        res.status(200).json({
+            message: 'Successfully leaved'
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
 // @route GET api/student/course/:id
 // @desc Return course 
 // @access Public
