@@ -214,6 +214,10 @@ exports.update = async function (req, res) {
         } else {
             //Course Short Name
             if (!newCourseName) {
+                if (newCourseShortName == course.courseShortName) return res.status(401).json({
+                    message: 'Same as previous course short name!'
+                });
+
                 course.courseShortName = newCourseShortName;
                 await course.save();
 
