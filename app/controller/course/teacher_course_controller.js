@@ -231,8 +231,8 @@ exports.update = async function (req, res) {
 
                 } else {
                     //Course Name and Short Name
-                    course.courseName = newCourseShortName;
-                    course.courseShortName = newCourseName;
+                    course.courseName = newCourseName;
+                    course.courseShortName = newCourseShortName;
                     await course.save();
 
                     res.status(200).json({
