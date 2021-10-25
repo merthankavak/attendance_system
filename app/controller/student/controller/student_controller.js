@@ -44,12 +44,13 @@ exports.update = async function (req, res) {
         });
 
         if (!image) {
-
+            // Name only
             if (newName == student.studentName) return res.status(401).json({
                 message: 'Same as previous name!'
             });
 
             student.studentName = newName;
+
             await student.save();
 
             res.status(200).json({
@@ -57,24 +58,51 @@ exports.update = async function (req, res) {
             });
 
         } else {
+            //Image only
+            if (newName.length < 0) {
+                const studentNewImage = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
+                const studentNewFileType = image.mimetype;
 
-            if (!image) return res.status(401).json({
-                message: 'You must upload at least one image'
-            });
-            const studentNewImage = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
-            const studentNewFileType = image.mimetype;
+                student.studentImage.imageByte = studentNewImage;
+                student.studentImage.fileType = studentNewFileType;
 
-            student.studentImage.imageByte = studentNewImage;
-            student.studentImage.fileType = studentNewFileType;
+                await student.save();
 
-            await student.save();
+                res.status(200).json({
+                    message: 'Image successfully updated'
+                });
 
-            res.status(200).json({
-                message: 'Image successfully updated'
-            });
+            } else {
+                if (newName === student.studentName) {
+                    const studentNewImage = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
+                    const studentNewFileType = image.mimetype;
 
+                    student.studentImage.imageByte = studentNewImage;
+                    student.studentImage.fileType = studentNewFileType;
+
+                    await student.save();
+
+                    res.status(200).json({
+                        message: 'Image successfully updated'
+                    });
+
+                } else {
+                    //Image and name
+                    student.studentName = newName;
+                    const studentNewImage = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
+                    const studentNewFileType = image.mimetype;
+
+                    student.studentImage.imageByte = studentNewImage;
+                    student.studentImage.fileType = studentNewFileType;
+
+                    await student.save();
+
+                    res.status(200).json({
+                        message: 'Student information successfully updated'
+                    });
+                }
+            }
         }
-
     } catch (error) {
         res.status(500).json({
             message: error.message
