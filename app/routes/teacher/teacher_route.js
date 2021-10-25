@@ -44,9 +44,12 @@ router.post('/course/addcourse', Course.addCourse);
 router.delete('/course/deletecourse/:id', Course.deleteCourse);
 
 //Teacher Add Course Schedule
-router.post('/course/:id/addschedule', Course.addCourseSchedule);
+router.post('/course/addschedule/:id', Course.addCourseSchedule);
 
 //Teacher Check Course Attendance
-router.post('/course/:id/checkattendance', upload.single('image'), Course.checkAttendance);
+router.post('/course/checkattendance/:id', upload.single('image'), Course.checkAttendance);
+
+//Teacher Course Update
+router.post('/update/:id', Course.update);
 
 module.exports = router;

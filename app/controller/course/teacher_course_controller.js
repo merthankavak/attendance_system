@@ -59,7 +59,7 @@ exports.deleteCourse = async function (req, res) {
     }
 };
 
-// @route POST api/teacher/course/{id}/addschedule
+// @route POST api/teacher/course/addschedule/:id
 // @desc Add course schedule
 // @access Public
 exports.addCourseSchedule = async (req, res) => {
@@ -106,7 +106,7 @@ exports.addCourseSchedule = async (req, res) => {
         })
     }
 };
-// @route GET api/teacher/course/{id}
+// @route GET api/teacher/course/:id
 // @desc Return course
 // @access Public
 exports.show = async function (req, res) {
@@ -131,7 +131,7 @@ exports.show = async function (req, res) {
 
 
 
-// @route POST api/teacher/course/{id}/checkattendance
+// @route POST api/teacher/course/checkattendance/:id
 // @desc Check course attendance
 // @access Public
 exports.checkAttendance = async (req, res) => {
@@ -180,5 +180,70 @@ exports.checkAttendance = async (req, res) => {
         res.status(500).json({
             message: error.message
         })
+    }
+};
+
+// @route POST api/teacher/course/update/:id
+// @desc Course Update
+exports.update = async function (req, res) {
+    try {
+        const id = req.params.id;
+        const newCourseName = req.body.courseName;
+        const newCourseShortName = req.body.courseShortName;
+
+        const course = await Course.findById(id);
+
+        if (!course) return res.status(401).json({
+            message: 'Course does not exist'
+        });
+
+        if (!newCourseShortName) {
+            //Course Name
+            if (newCourseName == course.courseName) return res.status(401).json({
+                message: 'Same as previous course name!'
+            });
+
+            course.courseName = courseName;
+
+            await course.save();
+
+            res.status(200).json({
+                message: 'Course name successfully updated'
+            });
+
+        } else {
+            //Course Short Name
+            if (!newCourseName) {
+                course.courseShortName = newCourseShortName;
+                await course.save();
+
+                res.status(200).json({
+                    message: 'Course short name successfully updated'
+                });
+
+            } else {
+                if (newCourseName === course.courseName) {
+                    course.courseShortName = newCourseShortName;
+                    await course.save();
+                    res.status(200).json({
+                        message: 'Course short name successfully updated'
+                    });
+
+                } else {
+                    //Course Name and Short Name
+                    course.courseName = newCourseShortName;
+                    course.courseShortName = newCourseName;
+                    await course.save();
+
+                    res.status(200).json({
+                        message: 'Course information successfully updated'
+                    });
+                }
+            }
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
     }
 };

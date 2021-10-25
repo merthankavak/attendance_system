@@ -24,10 +24,6 @@ const TeacherSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    teacherImage: {
-        type: Buffer,
-        required: false
-    },
     isVerified: {
         type: Boolean,
         default: false
