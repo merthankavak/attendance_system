@@ -55,7 +55,7 @@ exports.leaveCourse = async function (req, res) {
 
         const course = await Course.findById(courseId);
         await course.students.pull({
-            '_id': id
+            _id: id
         });
 
         res.status(200).json({
