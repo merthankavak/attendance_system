@@ -59,10 +59,12 @@ exports.leaveCourse = async function (req, res) {
 
         await student.remove();
 
-        const attendanceArray = course.attendance.find((s) => s.id == id);
-       
-        await attendanceArray.remove();
-      
+        const attendanceArray = course.attendance;
+
+        for (let i = 0; i < attendanceArray.length; i++) {
+            attendanceArray[i].students.remove(student);
+        }
+
         await course.save();
 
         res.status(200).json({
