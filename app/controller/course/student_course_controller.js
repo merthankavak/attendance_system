@@ -55,8 +55,7 @@ exports.leaveCourse = async function (req, res) {
 
         const course = await Course.findById(courseId);
 
-        const student = await course.students.find((s) => s.id == id);
-        student.id = undefined;
+        await course.students.id(id).remove();
 
         res.status(200).json({
             message: 'Successfully leaved'
