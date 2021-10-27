@@ -106,7 +106,7 @@ exports.showOneCourse = async function (req, res) {
             courseShortName: course.courseShortName,
             courseName: course.courseName,
             courseCode: course.courseCode,
-            students: course.students.find({}).select("-studentName").exec()
+            students: course.students.find({},'-studentName').exec()
         });
 
     } catch (error) {
