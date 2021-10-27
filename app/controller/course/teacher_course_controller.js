@@ -159,6 +159,7 @@ exports.takeAttendance = async (req, res) => {
             message: 'No attendance record available by this date'
         });
 
+        
         let studentsArray = currentAttendance.students;
 
         for (let i = 0; i < studentsArray.length; i++) {
