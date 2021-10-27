@@ -39,6 +39,7 @@ exports.joinCourse = async (req, res) => {
         await course.save();
 
         res.status(200).json({
+            course: course,
             message: 'Successfully joined the course'
         });
 
