@@ -96,7 +96,7 @@ exports.showOneCourse = async function (req, res) {
         });
 
         const attendanceArray = course.attendance;
-        const studentAttendanceArray = [];
+        let studentAttendanceArray = [];
 
         for (let i = 0; i < attendanceArray.length; i++) {
             studentAttendanceArray = {};
