@@ -89,6 +89,7 @@ exports.leaveCourse = async function (req, res) {
 exports.showOneCourse = async function (req, res) {
     try {
         const id = req.params.id;
+        const studentId = req.body.studentId;
         const course = await Course.findById(id);
 
         if (!course) return res.status(401).json({
@@ -100,10 +101,10 @@ exports.showOneCourse = async function (req, res) {
 
         for (let i = 0; i < attendanceArray.length; i++) {
             studentAttendanceArray[i] = {};
-            let studentInAttendanceArray = await attendanceArray[i].students.find((student) => student.id == id);
+            let studentInAttendance = await attendanceArray[i].students.find((student) => student.id == studentId);
             studentAttendanceArray[i].date = attendanceArray[i].date;
             studentAttendanceArray[i].time = attendanceArray[i].time;
-            studentAttendanceArray[i].attendanceStatus = studentInAttendanceArray[i].attendanceStatus;
+            studentAttendanceArray[i].attendanceStatus = studentInAttendance.attendanceStatus;
         }
 
         res.status(200).json({
