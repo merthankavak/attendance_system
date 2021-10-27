@@ -107,9 +107,9 @@ exports.addCourseSchedule = async (req, res) => {
     }
 };
 // @route GET api/teacher/course/:id
-// @desc Return course
+// @desc Get one course
 // @access Public
-exports.show = async function (req, res) {
+exports.showOneCourse = async function (req, res) {
     try {
         const id = req.params.id;
         const course = await Course.findById(id);
@@ -128,8 +128,30 @@ exports.show = async function (req, res) {
     }
 };
 
+// @route GET api/teacher/course/list
+// @desc Get course list
+// @access Public
+exports.showCourseList = async function (req, res) {
+    try {
+        const teacherId = req.body.teacherId;
+        let courseList = await Course.find({
+            ' teacher.id': teacherId
+        }).exec();
 
+        if (!courseList) return res.status(401).json({
+            message: 'Course list does not exist'
+        });
 
+        res.status(200).json({
+            courseList
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+};
 
 // @route POST api/teacher/course/takeattendance/:id/:date
 // @desc Check course attendance
@@ -159,7 +181,7 @@ exports.takeAttendance = async (req, res) => {
             message: 'No attendance record available by this date'
         });
 
-        
+
         let studentsArray = currentAttendance.students;
 
         for (let i = 0; i < studentsArray.length; i++) {
