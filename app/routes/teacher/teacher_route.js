@@ -50,7 +50,7 @@ router.delete('/course/deletecourse/:id', Course.deleteCourse);
 router.post('/course/addschedule/:id', Course.addCourseSchedule);
 
 //Teacher Check Course Attendance
-router.post('/course/checkattendance/:id', upload.single('image'), Course.checkAttendance);
+router.post('/course/takeattendance/:id/:date', upload.single('image'), Course.takeAttendance);
 
 //Teacher Course Update
 router.post('/course/update/:id', Course.update);

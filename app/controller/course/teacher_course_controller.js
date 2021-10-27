@@ -131,12 +131,14 @@ exports.show = async function (req, res) {
 
 
 
-// @route POST api/teacher/course/checkattendance/:id
+// @route POST api/teacher/course/takeattendance/:id/:date
 // @desc Check course attendance
 // @access Public
-exports.checkAttendance = async (req, res) => {
+exports.takeAttendance = async (req, res) => {
     try {
         const id = req.params.id;
+        const date = req.params.date;
+
         const currentCourse = await Course.findById(id);
 
         if (!currentCourse) res.status(401).json({
@@ -150,7 +152,16 @@ exports.checkAttendance = async (req, res) => {
         });
 
         var imageByte = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
-        let studentsArray = currentCourse.attendance[0].students;
+
+        let currentAttendance = await currentCourse.attendance.find({
+            date: date
+        });
+
+        if (!currentAttendance) res.status(401).json({
+            message: 'No attendance record available by this date'
+        });
+
+        let studentsArray = currentAttendance.students; // Attendance For Day
 
         for (let i = 0; i < studentsArray.length; i++) {
             var studentId = studentsArray[i].id;
