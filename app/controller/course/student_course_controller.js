@@ -99,9 +99,7 @@ exports.show = async function (req, res) {
                 teacher: course.teacher.teacherName,
                 courseShortName: course.courseShortName,
                 courseName: course.courseName,
-                students: course.students.select({
-                    studentName
-                }),
+                students: course.students.find({}, 'studentName')
             }
         });
 
