@@ -205,6 +205,7 @@ exports.takeAttendance = async (req, res) => {
         }
 
         res.status(200).json({
+            studentsArray,
             message: 'Attendance for the course was successfully taken'
         });
 

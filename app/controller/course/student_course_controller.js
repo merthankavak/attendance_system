@@ -89,13 +89,8 @@ exports.leaveCourse = async function (req, res) {
 exports.showOneCourse = async function (req, res) {
     try {
         const id = req.params.id;
-        const studentId = req.body.studentId;
         const student = await Student.findById(studentId);
         const course = await Course.findById(id);
-
-        if (!student) return res.status(401).json({
-            message: 'Student does not exist'
-        });
 
         if (!course) return res.status(401).json({
             message: 'Course does not exist'
@@ -106,7 +101,7 @@ exports.showOneCourse = async function (req, res) {
             courseShortName: course.courseShortName,
             courseName: course.courseName,
             courseCode: course.courseCode,
-            students: course.students.find({},'-studentName').exec()
+            students: course.students
         });
 
     } catch (error) {
