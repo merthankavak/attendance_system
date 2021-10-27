@@ -128,12 +128,12 @@ exports.showOneCourse = async function (req, res) {
     }
 };
 
-// @route GET api/teacher/course/list
+// @route GET api/teacher/course/list/:id
 // @desc Get course list
 // @access Public
 exports.showCourseList = async function (req, res) {
     try {
-        const teacherId = req.body.teacherId;
+        const teacherId = req.params.id;
         let courseList = await Course.find({
             ' teacher._id': teacherId
         }).exec();

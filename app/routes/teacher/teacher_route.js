@@ -41,7 +41,7 @@ router.post('/update/:id', Teacher.update);
 router.get('/course/:id', Course.showOneCourse);
 
 //Teacher Get Course List
-router.get('/course/list', Course.showCourseList);
+router.get('/course/list/:id', Course.showCourseList);
 
 //Teacher Add New Course
 router.post('/course/addcourse', Course.addCourse);
