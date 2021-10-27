@@ -102,14 +102,11 @@ exports.showOneCourse = async function (req, res) {
         });
 
         res.status(200).json({
-            course: {
-                teacher: course.teacher.teacherName,
-                courseShortName: course.courseShortName,
-                courseName: course.courseName,
-                courseCode: course.courseCode,
-                students: course.students.where('studentName')
-
-            }
+            teacher: course.teacher.teacherName,
+            courseShortName: course.courseShortName,
+            courseName: course.courseName,
+            courseCode: course.courseCode,
+            students: course.students.select('studentName')
         });
 
     } catch (error) {
