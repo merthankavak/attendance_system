@@ -107,7 +107,7 @@ exports.showOneCourse = async function (req, res) {
                 courseShortName: course.courseShortName,
                 courseName: course.courseName,
                 courseCode: course.courseCode,
-                students: course.students.studentName,
+                students: course.students.where('studentName')
 
             }
         });
