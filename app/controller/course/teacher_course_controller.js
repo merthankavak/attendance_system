@@ -183,6 +183,7 @@ exports.takeAttendance = async (req, res) => {
 
 
         let studentsArray = currentAttendance.students;
+        const participateStudent = 0;
 
         for (let i = 0; i < studentsArray.length; i++) {
             var studentId = studentsArray[i].id;
@@ -200,11 +201,15 @@ exports.takeAttendance = async (req, res) => {
 
             if (faceData.FaceMatches.length > 0) {
                 studentsArray[i].attendanceStatus = true;
+                participateStudent++;
             }
             await currentCourse.save();
         }
 
         res.status(200).json({
+            totalStudent: studentsArray.length,
+            participateStudent: participateStudent,
+            absentStudent: studentsArray.length - participateStudent,
             studentsArray,
             message: 'Attendance for the course was successfully taken'
         });
