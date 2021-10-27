@@ -24,7 +24,7 @@ exports.joinCourse = async (req, res) => {
             var studentInAttendanceArray = await attendanceArray[i].students.find((student) => student.id === id);
         }
 
-        if (studentAlreadyIn && studentInAttendanceArray) {
+        if (studentAlreadyIn || studentInAttendanceArray) {
             return res.status(401).json({
                 message: 'You have already enrolled this course'
             });
