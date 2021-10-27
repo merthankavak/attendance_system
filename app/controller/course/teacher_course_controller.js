@@ -153,7 +153,7 @@ exports.takeAttendance = async (req, res) => {
 
         var imageByte = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
 
-        let currentAttendance = await currentCourse.attendance.find({
+        let currentAttendance = await currentCourse.attendance.findOne({
             date: date
         });
 
