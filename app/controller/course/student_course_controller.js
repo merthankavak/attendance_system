@@ -90,7 +90,7 @@ exports.show = async function (req, res) {
         const id = req.params.id;
         const course = await Course.findById(id);
 
-        if (!courseList) return res.status(401).json({
+        if (!course) return res.status(401).json({
             message: 'Course does not exist.'
         });
 
