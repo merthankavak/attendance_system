@@ -106,6 +106,9 @@ exports.showOneCourse = async function (req, res) {
                 teacher: course.teacher.teacherName,
                 courseShortName: course.courseShortName,
                 courseName: course.courseName,
+                courseCode: course.courseCode,
+                students: course.students.studentName,
+
             }
         });
 
