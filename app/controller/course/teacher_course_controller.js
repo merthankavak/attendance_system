@@ -135,7 +135,7 @@ exports.showCourseList = async function (req, res) {
     try {
         const teacherId = req.params.id;
         let courseList = await Course.find({
-            ' teacher._id': teacherId
+            "teacher._id": teacherId
         }).exec();
 
         if (!courseList) return res.status(401).json({

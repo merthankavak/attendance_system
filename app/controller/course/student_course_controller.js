@@ -116,8 +116,9 @@ exports.showOneCourse = async function (req, res) {
 exports.showCourseList = async function (req, res) {
     try {
         const studentId = req.params.id;
+
         let courseList = await Course.find({
-            ' students._id': studentId
+            "students._id": studentId
         }).exec();
 
         if (!courseList) return res.status(401).json({
