@@ -17,15 +17,19 @@ exports.joinCourse = async (req, res) => {
             message: 'Course does not exist'
         });
 
+        const attendanceArray = course.attendance;
         const studentAlreadyIn = await course.students.find((s) => s.id === id);
 
-        if (studentAlreadyIn) {
+        for (let i = 0; i < attendanceArray.length; i++) {
+            var studentInAttendanceArray = await attendanceArray[i].students.find((student) => student.id === id);
+        }
+
+        if (studentAlreadyIn && studentInAttendanceArray) {
             return res.status(401).json({
                 message: 'You have already enrolled this course'
             });
         }
 
-        const attendanceArray = course.attendance;
         await course.students.push(student);
 
         for (let i = 0; i < attendanceArray.length; i++) {
@@ -64,7 +68,6 @@ exports.leaveCourse = async function (req, res) {
             var studentInAttendanceArray = await attendanceArray[i].students.find((student) => student.id == id);
             await studentInAttendanceArray.remove();
         }
-
 
         await course.save();
 
