@@ -102,7 +102,7 @@ exports.showOneCourse = async function (req, res) {
             studentAttendanceArray = {};
             let studentInAttendanceArray = await attendanceArray[i].students.find((student) => student.id == id);
             studentAttendanceArray[i].date = attendanceArray[i].date;
-            studentAttendanceArray[i].date = attendanceArray[i].time;
+            studentAttendanceArray[i].time = attendanceArray[i].time;
             studentAttendanceArray[i].attendanceStatus = studentInAttendanceArray.attendanceStatus;
         }
 
