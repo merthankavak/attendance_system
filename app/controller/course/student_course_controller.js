@@ -95,12 +95,24 @@ exports.showOneCourse = async function (req, res) {
             message: 'Course does not exist'
         });
 
+        const attendanceArray = course.attendance;
+        const studentAttendanceArray = [];
+
+        for (let i = 0; i < attendanceArray.length; i++) {
+            studentAttendanceArray = {};
+            var studentInAttendanceArray = await attendanceArray[i].students.find((student) => student.id == id);
+            studentAttendanceArray[i].date = attendanceArray[i].date;
+            studentAttendanceArray[i].date = attendanceArray[i].time;
+            studentAttendanceArray[i].attendanceStatus = studentInAttendanceArray.attendanceStatus;
+        }
+
         res.status(200).json({
             teacher: course.teacher.teacherName,
             courseShortName: course.courseShortName,
             courseName: course.courseName,
             courseCode: course.courseCode,
-            students: course.students
+            students: course.students,
+            attendance: studentAttendanceArray
         });
 
     } catch (error) {
