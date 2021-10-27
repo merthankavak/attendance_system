@@ -221,6 +221,53 @@ exports.takeAttendance = async (req, res) => {
     }
 };
 
+// @route POST api/teacher/course/manageattendance/:id/:date
+// @desc Update course attendance
+// @access Public
+exports.manageAttendance = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const date = req.params.date;
+        let statusArray = req.body.statusArray;
+
+        const currentCourse = await Course.findById(id);
+
+        if (!currentCourse) res.status(401).json({
+            message: 'Course does not exist'
+        });
+
+        let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
+
+        if (!currentAttendance) res.status(401).json({
+            message: 'No attendance record available by this date'
+        });
+
+        let studentsArray = currentAttendance.students;
+        let participateStudent = 0;
+
+        for (let i = 0; i < studentsArray.length; i++) {
+            var studentId = studentsArray[i].id;
+            var student = await Student.findById(studentId);
+            student.attendanceStatus = statusArray[i];
+            if (statusArray[i] == true) participateStudent++;
+            await currentCourse.save();
+        }
+
+        res.status(200).json({
+            totalStudent: studentsArray.length,
+            participateStudent: participateStudent,
+            absentStudent: studentsArray.length - participateStudent,
+            studentsArray,
+            message: 'Attendance for the course was successfully updated'
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+};
+
 // @route POST api/teacher/course/update/:id
 // @desc Course Update
 exports.update = async function (req, res) {

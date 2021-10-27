@@ -55,6 +55,9 @@ router.post('/course/addschedule/:id', Course.addCourseSchedule);
 //Teacher Check Course Attendance
 router.post('/course/takeattendance/:id/:date', upload.single('image'), Course.takeAttendance);
 
+//Teacher Manage Course Attendance
+router.post('/course/manageattendance/:id/:date', Course.manageAttendance);
+
 //Teacher Course Update
 router.post('/course/update/:id', Course.update);
 
