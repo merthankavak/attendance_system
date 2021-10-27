@@ -183,7 +183,7 @@ exports.takeAttendance = async (req, res) => {
 
 
         let studentsArray = currentAttendance.students;
-        const participateStudent = 0;
+        let participateStudent = 0;
 
         for (let i = 0; i < studentsArray.length; i++) {
             var studentId = studentsArray[i].id;
