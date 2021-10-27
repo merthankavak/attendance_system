@@ -87,21 +87,20 @@ exports.leaveCourse = async function (req, res) {
 // @access Public
 exports.show = async function (req, res) {
     try {
-        const studentId = req.params.id;
-        const courseList = await Course.find({
-            $match: {
-                '_id': {
-                    '$in': [studentId]
-                }
-            }
-        });
+        const id = req.params.id;
+        const course = await Course.findById(id);
 
         if (!courseList) return res.status(401).json({
             message: 'Course does not exist.'
         });
 
         res.status(200).json({
-            courseList
+            course: {
+                teacher: course.teacher.teacherName,
+                courseShortName: course.courseShortName,
+                courseName: course.courseName,
+                students: [course.students.studentName],
+            }
         });
 
     } catch (error) {
