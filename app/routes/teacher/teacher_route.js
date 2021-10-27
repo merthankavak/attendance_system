@@ -37,10 +37,10 @@ router.post('/changepassword/:id', [
 //Teacher Update
 router.post('/update/:id', Teacher.update);
 
-//Teacher Get One Course
+//Teacher Show One Course
 router.get('/course/:id', Course.showOneCourse);
 
-//Teacher Get Course List
+//Teacher Show Course List
 router.get('/course/list/:id', Course.showCourseList);
 
 //Teacher Add New Course

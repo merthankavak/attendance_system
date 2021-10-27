@@ -84,9 +84,9 @@ exports.leaveCourse = async function (req, res) {
 };
 
 // @route GET api/student/course/:id
-// @desc Return course 
+// @desc Show one course 
 // @access Public
-exports.show = async function (req, res) {
+exports.showOneCourse = async function (req, res) {
     try {
         const id = req.params.id;
         const studentId = req.body.studentId;
@@ -107,6 +107,31 @@ exports.show = async function (req, res) {
                 courseShortName: course.courseShortName,
                 courseName: course.courseName,
             }
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+};
+
+// @route GET api/student/course/list/:id
+// @desc Show course list
+// @access Public
+exports.showCourseList = async function (req, res) {
+    try {
+        const studentId = req.params.id;
+        let courseList = await Course.find({
+            ' students._id': studentId
+        }).exec();
+
+        if (!courseList) return res.status(401).json({
+            message: 'Course list does not exist'
+        });
+
+        res.status(200).json({
+            courseList
         });
 
     } catch (error) {

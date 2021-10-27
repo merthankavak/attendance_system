@@ -37,8 +37,11 @@ router.post('/changepassword/:id', [
 //Student Update
 router.post('/update/:id', upload.single('image'), Student.update);
 
-//Student Get Course
-router.get('/course/:id', Course.show);
+//Student Show One Course
+router.get('/course/:id', Course.showOneCourse);
+
+//Student Show Course List
+router.get('/course/list/:id', Course.showCourseList);
 
 //Student Join Course
 router.post('/course/joincourse', Course.joinCourse);
