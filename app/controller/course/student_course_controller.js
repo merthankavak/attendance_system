@@ -60,6 +60,10 @@ exports.leaveCourse = async function (req, res) {
         const course = await Course.findById(courseId);
         const student = await course.students.find((s) => s.id == id);
 
+        if (!student) return res.status(401).json({
+            message: 'Student does not exist'
+        });
+
         await student.remove();
 
         const attendanceArray = course.attendance;
