@@ -153,7 +153,7 @@ exports.takeAttendance = async (req, res) => {
 
         var imageByte = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
 
-        let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date === date);
+        let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
         if (!currentAttendance) res.status(401).json({
             message: 'No attendance record available by this date'
