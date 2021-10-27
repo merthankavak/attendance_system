@@ -89,7 +89,6 @@ exports.leaveCourse = async function (req, res) {
 exports.showOneCourse = async function (req, res) {
     try {
         const id = req.params.id;
-        const student = await Student.findById(studentId);
         const course = await Course.findById(id);
 
         if (!course) return res.status(401).json({
