@@ -246,8 +246,11 @@ exports.manageAttendance = async (req, res) => {
         let participateStudent = 0;
 
         for (let i = 0; i < studentsArray.length; i++) {
-            studentsArray[i].attendanceStatus = statusArray[i];
-            if (statusArray[i] == true) participateStudent++;
+            if (statusArray[i] == "true") {
+                studentsArray[i].attendanceStatus = true;
+            } else {
+                studentsArray[i].attendanceStatus = false;
+            }
             await currentCourse.save();
         }
 
