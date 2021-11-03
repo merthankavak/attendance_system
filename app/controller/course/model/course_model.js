@@ -22,7 +22,7 @@ const CourseSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Teacher'
         },
-        teacherName: {
+        fullName: {
             type: String,
             ref: 'Teacher'
         },
@@ -40,7 +40,7 @@ const CourseSchema = mongoose.Schema({
             type: String,
             ref: 'Student'
         },
-        studentName: {
+        fullName: {
             type: String,
             ref: 'Student'
         },
@@ -63,7 +63,7 @@ const CourseSchema = mongoose.Schema({
                 type: String,
                 ref: 'Student'
             },
-            studentName: {
+            fullName: {
                 type: String,
                 ref: 'Student'
             },

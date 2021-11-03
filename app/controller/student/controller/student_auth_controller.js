@@ -67,7 +67,7 @@ exports.login = async (req, res) => {
 
         res.status(200).json({
             token: student.generateJWT(),
-            student: student
+            user: student
         });
 
     } catch (error) {
@@ -151,7 +151,7 @@ async function sendVerificationEmail(student, req, res) {
         let from = process.env.FROM_EMAIL;
         let replyTo = process.env.FROM_EMAIL;
         let support = process.env.FROM_EMAIL;
-        let fullName = student.studentName;
+        let fullName = student.fullName;
 
         await sendEmail({
             to,

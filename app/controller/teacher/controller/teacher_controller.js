@@ -33,7 +33,7 @@ exports.changePassword = async (req, res) => {
 exports.update = async function (req, res) {
     try {
         const id = req.params.id;
-        const newName = req.body.teacherName;
+        const newName = req.body.fullName;
 
         const teacher = await Teacher.findById(id);
 
@@ -41,11 +41,11 @@ exports.update = async function (req, res) {
             message: 'Teacher does not exist'
         });
 
-        if (newName == teacher.teacherName) return res.status(401).json({
+        if (newName == teacher.fullName) return res.status(401).json({
             message: 'Same as previous name!'
         });
 
-        teacher.teacherName = newName;
+        teacher.fullName = newName;
 
         await teacher.save();
 

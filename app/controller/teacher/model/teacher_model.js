@@ -20,7 +20,7 @@ const TeacherSchema = new mongoose.Schema({
         required: 'Your password is required',
         max: 50
     },
-    teacherName: {
+    fullName: {
         type: String,
         required: true
     },

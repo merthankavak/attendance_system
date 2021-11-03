@@ -34,7 +34,7 @@ exports.changePassword = async (req, res) => {
 exports.update = async function (req, res) {
     try {
         const id = req.params.id;
-        const newName = req.body.studentName;
+        const newName = req.body.fullName;
         var image = req.file;
 
         const student = await Student.findById(id);
@@ -45,11 +45,11 @@ exports.update = async function (req, res) {
 
         if (!image) {
             // Name only
-            if (newName == student.studentName) return res.status(401).json({
+            if (newName == student.fullName) return res.status(401).json({
                 message: 'Same as previous name!'
             });
 
-            student.studentName = newName;
+            student.fullName = newName;
 
             await student.save();
 
@@ -73,7 +73,7 @@ exports.update = async function (req, res) {
                 });
 
             } else {
-                if (newName === student.studentName) {
+                if (newName === student.fullName) {
                     const studentNewImage = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
                     const studentNewFileType = image.mimetype;
 
@@ -88,7 +88,7 @@ exports.update = async function (req, res) {
 
                 } else {
                     //Image and name
-                    student.studentName = newName;
+                    student.fullName = newName;
                     const studentNewImage = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
                     const studentNewFileType = image.mimetype;
 

@@ -25,7 +25,7 @@ const StudentSchema = new mongoose.Schema({
         required: 'Your password is required',
         max: 50
     },
-    studentName: {
+    fullName: {
         type: String,
         required: true
     },

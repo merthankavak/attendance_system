@@ -23,7 +23,7 @@ exports.recover = async (req, res) => {
         await teacher.generatePasswordReset();
         await teacher.save();
 
-        let fullName = teacher.teacherName;
+        let fullName = teacher.fullName;
         let to = teacher.email;
         let from = process.env.FROM_EMAIL;
         let support = process.env.SUPPORT_EMAIL;

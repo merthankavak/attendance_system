@@ -108,7 +108,7 @@ exports.showOneCourse = async function (req, res) {
         }
 
         res.status(200).json({
-            teacher: course.teacher.teacherName,
+            teacher: course.teacher.fullName,
             courseShortName: course.courseShortName,
             courseName: course.courseName,
             courseCode: course.courseCode,
