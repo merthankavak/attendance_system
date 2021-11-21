@@ -46,10 +46,12 @@ const CourseSchema = mongoose.Schema({
         },
         studentImage: {
             imageByte: {
-                type: Buffer,
-                ref: 'Student'
-            }
-        }
+                type: Buffer
+            },
+            fileType: {
+                type: String
+            },
+        },
     }],
     attendance: [{
         date: {
@@ -72,12 +74,6 @@ const CourseSchema = mongoose.Schema({
             fullName: {
                 type: String,
                 ref: 'Student'
-            },
-            studentImage: {
-                imageByte: {
-                    type: Buffer,
-                    ref: 'Student'
-                }
             },
             attendanceStatus: {
                 type: Boolean,
