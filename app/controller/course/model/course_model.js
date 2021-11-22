@@ -45,9 +45,16 @@ const CourseSchema = mongoose.Schema({
             ref: 'Student'
         },
         studentImage: {
-            type: Buffer,
-            ref: 'Student'
+            imageByte: {
+                type: Buffer,
+                ref: 'Student'
+            },
+            fileType: {
+                type: String,
+                ref: 'Student'
+            },
         },
+
     }],
     attendance: [{
         date: {
