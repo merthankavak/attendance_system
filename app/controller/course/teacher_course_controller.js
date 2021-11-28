@@ -166,8 +166,8 @@ exports.takeAttendance = async (req, res) => {
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
         });
-
-        var replacedImage = image.replace(/^data:image\/[a-z]+;base64,/, "");
+        var imageString = await image.toString();
+        var replacedImage = await imageString.replace(/^data:image\/[a-z]+;base64,/, "");
 
         if (replacedImage == '') return res.status(401).json({
             message: 'You must upload at least one image'
