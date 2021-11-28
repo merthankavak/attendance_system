@@ -160,14 +160,14 @@ exports.takeAttendance = async (req, res) => {
     try {
         const id = req.params.id;
         const date = req.params.date;
-        var image = req.body.image;
+        let image = req.body.image;
         const currentCourse = await Course.findById(id);
-
+        parseInt()
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
         });
-        var imageString = JSON.stringify(image);
-        var replacedImage = await imageString.replace(/^data:image\/[a-z]+;base64,/, "");
+        let imageString = image.toString();
+        let replacedImage = imageString.replace(/^data:image\/[a-z]+;base64,/, "");
 
         if (replacedImage == '') return res.status(401).json({
             message: 'You must upload at least one image'
