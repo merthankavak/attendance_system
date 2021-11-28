@@ -173,7 +173,9 @@ exports.takeAttendance = async (req, res) => {
             message: 'You must upload at least one image'
         });
 
-        var imageByte = Buffer(fs.readFileSync(image.path).toString('base64'));
+        var imageByte = Buffer(fs.readFileSync(image.path), {
+            encoding: 'base64'
+        });
 
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
