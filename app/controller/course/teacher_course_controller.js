@@ -160,13 +160,14 @@ exports.takeAttendance = async (req, res) => {
     try {
         const id = req.params.id;
         const date = req.params.date;
-        let image = req.body.image;
+        const data = req.body.image;
         const currentCourse = await Course.findById(id);
         parseInt()
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
         });
-        let imageString = image.toString();
+        let imageString = String(data);
+
         let replacedImage = imageString.replace(/^data:image\/[a-z]+;base64,/, "");
 
         if (replacedImage == '') return res.status(401).json({
