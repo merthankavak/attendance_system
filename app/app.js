@@ -12,7 +12,9 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 app.use(cors());
-
+app.use(express.bodyParser({
+    limit: '50mb'
+}))
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
