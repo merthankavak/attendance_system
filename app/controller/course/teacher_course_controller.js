@@ -210,7 +210,7 @@ exports.takeAttendance = async (req, res) => {
             totalStudent: studentsArray.length.toString(),
             participateStudent: participateStudent.toString(),
             absentStudent: (studentsArray.length - participateStudent).toString(),
-            studentsArray,
+            studentsArray: studentsArray,
             message: 'Attendance for the course was successfully taken'
         });
 
