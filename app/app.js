@@ -5,6 +5,7 @@ const teacherPassport = require('passport');
 const studentPassport = require('passport');
 const path = require('path');
 const app = express();
+const bodyParser = require('body-parser');
 require('dotenv').config();
 
 app.use(express.urlencoded({
@@ -12,7 +13,7 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 app.use(cors());
-app.use(express.bodyParser({
+app.use(bodyParser({
     limit: '50mb'
 }))
 // view engine setup
