@@ -16,7 +16,10 @@ app.use(express.json({
     limit: '50mb'
 }));
 app.use(cors());
-app.use(bodyParser({
+app.use(bodyParser.json({
+    limit: '50mb'
+}));
+app.use(bodyParser.urlencoded({
     limit: '50mb'
 }))
 // view engine setup
