@@ -160,22 +160,19 @@ exports.takeAttendance = async (req, res) => {
     try {
         const id = req.params.id;
         const date = req.params.date;
-
+        const image = req.body.image;
         const currentCourse = await Course.findById(id);
 
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
         });
 
-        var image = req.file;
 
         if (!image) return res.status(401).json({
             message: 'You must upload at least one image'
         });
 
-        var imageByte = Buffer(fs.readFileSync(image.path), {
-            encoding: 'base64'
-        });
+        var imageByte = Buffer.from(image, 'base64');
 
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
