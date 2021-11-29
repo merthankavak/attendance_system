@@ -168,23 +168,11 @@ exports.takeAttendance = async (req, res) => {
         });
         var image = req.body.image;
 
-        function getBinary(base64image) {
-
-            var binaryImage = Buffer.from(base64image, 'base64').toString('base64');
-            var length = binaryImage.length;
-            var ab = new ArrayBuffer(length);
-            var ua = new Uint8Array(ab);
-            for (var i = 0; i < length; i++) {
-                ua[i] = binaryImage.charCodeAt(i);
-            }
-            return ab;
-        }
-
         if (!image) return res.status(401).json({
             message: 'You must upload at least one image'
         });
 
-        var imageByte = getBinary(image);
+        var imageByte = Buffer.from(image, 'base64');
 
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
