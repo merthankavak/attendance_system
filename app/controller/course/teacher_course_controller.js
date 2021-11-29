@@ -171,13 +171,7 @@ exports.takeAttendance = async (req, res) => {
         if (!image) return res.status(401).json({
             message: 'You must upload at least one image'
         });
-
-        var imageByte = Buffer(image, 'base64');
-        var ab = new ArrayBuffer(imageByte.length);
-        var ua = new Uint8Array(ab);
-        for (var i = 0; i < length; i++) {
-            ua[i] = imageByte.charCodeAt(i);
-        }
+        var imageByte = Buffer(image, 'base64').toString('binary');;
 
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
@@ -196,7 +190,7 @@ exports.takeAttendance = async (req, res) => {
             var faceData = await rekognition.compareFaces({
                 SimilarityThreshold: 70,
                 TargetImage: {
-                    Bytes: ab
+                    Bytes: imageByte
                 },
                 SourceImage: {
                     Bytes: studentImageByte
