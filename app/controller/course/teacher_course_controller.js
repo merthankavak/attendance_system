@@ -169,7 +169,7 @@ exports.takeAttendance = async (req, res) => {
 
         let imageString = String(data);
         ba64.writeImageSync("myimage", imageString); // Saves myimage.jpeg.
-        var imageMime = imageString.split('data:image/')[0];
+        var imageMime = imageString.toString().split('data:image/')[0];
         var imageFile = Buffer(fs.readFileSync(imageString + '.' + imageMime).toString('base64'), 'base64');
         if (imageFile == '') return res.status(401).json({
             message: 'You must upload at least one image'
