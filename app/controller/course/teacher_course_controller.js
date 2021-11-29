@@ -173,7 +173,7 @@ exports.takeAttendance = async (req, res) => {
         });
 
         var imageByte = Buffer(image, 'base64');
-        var ab = new ArrayBuffer(buff.length);
+        var ab = new ArrayBuffer(imageByte.length);
         var ua = new Uint8Array(ab);
         for (var i = 0; i < length; i++) {
             ua[i] = imageByte.charCodeAt(i);
