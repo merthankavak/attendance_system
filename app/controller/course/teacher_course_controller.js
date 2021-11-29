@@ -173,7 +173,7 @@ exports.takeAttendance = async (req, res) => {
         });
         var imageReplaced = image.replace(/^data:image\/(png|png|gif|bmp|jpg|jpeg);base64,/, "");
 
-        var imageByte = Buffer.from(imageReplaced, 'base64');
+        var imageByte = Buffer.from(imageReplaced, 'base64').toString('binary');
 
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
