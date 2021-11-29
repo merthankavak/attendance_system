@@ -162,7 +162,7 @@ exports.takeAttendance = async (req, res) => {
         const date = req.params.date;
         const data = req.body.image;
         const currentCourse = await Course.findById(id);
-        parseInt()
+       
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
         });
