@@ -166,8 +166,8 @@ exports.takeAttendance = async (req, res) => {
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
         });
-
-        let imageString = String(data);
+        var imageJson = JSON.stringify(data);
+        var imageString = String(imageJson);
         ba64.writeImageSync("myimage", imageString); // Saves myimage.jpeg.
         var imageMime = imageString.toString().split('data:image/')[0];
         var imageFile = Buffer(fs.readFileSync(imageString + '.' + imageMime).toString('base64'), 'base64');
