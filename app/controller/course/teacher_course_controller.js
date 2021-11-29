@@ -167,14 +167,12 @@ exports.takeAttendance = async (req, res) => {
             message: 'Course does not exist'
         });
         ba64.writeImageSync("myimage", data); // Saves myimage.jpeg.
-        var imageMime = data.split('data:image/')[0];
-        var imageFile = Buffer(fs.readFileSync('myimage.' + imageMime).toString('base64'), 'base64');
+
+        var imageFile = fs.readFileSync('myimage.jpg').toString('base64');
         if (imageFile == '') return res.status(401).json({
             message: 'You must upload at least one image'
         });
-
         var imageByte = Buffer(imageFile, 'base64');
-
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
         if (!currentAttendance) res.status(401).json({
