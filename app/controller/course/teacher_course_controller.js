@@ -172,7 +172,7 @@ exports.takeAttendance = async (req, res) => {
 
             var binaryImage = Buffer.from(base64image, 'base64')
             var length = binaryImage.length;
-            var ab = ArrayBuffer(length);
+            var ab = new ArrayBuffer(length);
             var ua = Uint8Array(ab);
             for (var i = 0; i < length; i++) {
                 ua[i] = binaryImage.charCodeAt(i);
