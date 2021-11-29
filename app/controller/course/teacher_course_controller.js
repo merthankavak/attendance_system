@@ -160,16 +160,15 @@ exports.takeAttendance = async (req, res) => {
     try {
         const id = req.params.id;
         const date = req.params.date;
-        const data = req.body.image;
+        let data = req.body.image;
         const currentCourse = await Course.findById(id);
 
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
         });
-        var imageString = data.toString().trim();
-        ba64.writeImageSync("myimage", imageString); // Saves myimage.jpeg.
-        var imageMime = data.toString().trim().split('data:image/')[0];
-        var imageFile = Buffer(fs.readFileSync(imageString + '.' + imageMime).toString('base64'), 'base64');
+        ba64.writeImageSync("myimage", data); // Saves myimage.jpeg.
+        var imageMime = data.split('data:image/')[0];
+        var imageFile = Buffer(fs.readFileSync('myimage.' + imageMime).toString('base64'), 'base64');
         if (imageFile == '') return res.status(401).json({
             message: 'You must upload at least one image'
         });
