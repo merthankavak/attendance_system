@@ -1,7 +1,7 @@
 const Course = require('./model/course_model');
 const Student = require('../student/model/student_model');
 const Teacher = require('../teacher/model/teacher_model');
-
+const ba64 = require("ba64");
 const moment = require('moment');
 const fs = require('fs-extra');
 
@@ -162,12 +162,15 @@ exports.takeAttendance = async (req, res) => {
         const date = req.params.date;
         const data = req.body.image;
         const currentCourse = await Course.findById(id);
-       
+
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
         });
+
         let imageString = String(data);
-        let imageFile = await fs.writeFile('./fileB64.png', imageString, 'base64');
+        ba64.writeImageSync("myimage", imageString); // Saves myimage.jpeg.
+        var imageMime = imageString.split('data:image/')[0];
+        var imageFile = Buffer(fs.readFileSync(imageString + '.' + imageMime).toString('base64'), 'base64');
         if (imageFile == '') return res.status(401).json({
             message: 'You must upload at least one image'
         });
