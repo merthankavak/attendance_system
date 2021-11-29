@@ -170,7 +170,7 @@ exports.takeAttendance = async (req, res) => {
 
         function getBinary(base64image) {
 
-            var binaryImage = atob(base64image);
+            var binaryImage = Buffer.from(base64image, 'base64')
             var length = binaryImage.length;
             var ab = ArrayBuffer(length);
             var ua = Uint8Array(ab);
