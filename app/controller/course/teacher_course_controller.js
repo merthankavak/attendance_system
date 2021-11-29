@@ -167,12 +167,14 @@ exports.takeAttendance = async (req, res) => {
             message: 'Course does not exist'
         });
         let imageString = String(data);
-
-        if (imageString == '') return res.status(401).json({
+        let imageFile = fs.writeFile('./fileB64', imageString, {
+            encoding: 'base64'
+        });
+        if (imageFile == '') return res.status(401).json({
             message: 'You must upload at least one image'
         });
 
-        var imageByte = Buffer(imageString, 'base64');
+        var imageByte = Buffer(imageFile, 'base64');
 
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
