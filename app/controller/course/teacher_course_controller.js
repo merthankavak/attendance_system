@@ -166,10 +166,9 @@ exports.takeAttendance = async (req, res) => {
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
         });
-        var imageJson = JSON.stringify(data);
-        var imageString = String(imageJson);
+        var imageString = String(data);
         ba64.writeImageSync("myimage", imageString); // Saves myimage.jpeg.
-        var imageMime = imageString.toString().split('data:image/')[0];
+        var imageMime = String(data).split('data:image/')[0];
         var imageFile = Buffer(fs.readFileSync(imageString + '.' + imageMime).toString('base64'), 'base64');
         if (imageFile == '') return res.status(401).json({
             message: 'You must upload at least one image'
