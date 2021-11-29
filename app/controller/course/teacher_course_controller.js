@@ -1,7 +1,7 @@
 const Course = require('./model/course_model');
 const Student = require('../student/model/student_model');
 const Teacher = require('../teacher/model/teacher_model');
-const ba64 = require("ba64");
+
 const moment = require('moment');
 const fs = require('fs-extra');
 
@@ -160,19 +160,21 @@ exports.takeAttendance = async (req, res) => {
     try {
         const id = req.params.id;
         const date = req.params.date;
-        let data = req.body.image;
+
         const currentCourse = await Course.findById(id);
 
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
         });
-        ba64.writeImageSync("myimage", data); // Saves myimage.jpeg.
 
-        var imageFile = fs.readFileSync('myimage.jpg').toString('base64');
-        if (imageFile == '') return res.status(401).json({
+        var image = req.file;
+
+        if (!image) return res.status(401).json({
             message: 'You must upload at least one image'
         });
-        var imageByte = Buffer(imageFile, 'base64');
+
+        var imageByte = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
+
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
         if (!currentAttendance) res.status(401).json({
@@ -208,7 +210,7 @@ exports.takeAttendance = async (req, res) => {
             totalStudent: studentsArray.length.toString(),
             participateStudent: participateStudent.toString(),
             absentStudent: (studentsArray.length - participateStudent).toString(),
-            studentsArray: studentsArray,
+            studentsArray,
             message: 'Attendance for the course was successfully taken'
         });
 

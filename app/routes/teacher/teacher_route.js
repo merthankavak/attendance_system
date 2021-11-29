@@ -7,7 +7,22 @@ const Teacher = require('../../controller/teacher/controller/teacher_controller'
 const Course = require('../../controller/course/teacher_course_controller');
 const router = express.Router();
 const multer = require('multer');
-
+const storage = multer.diskStorage({
+    destination: './uploads/',
+    filename: (req, file, cb) => cb(null, new Date().toISOString() + '-' + file.originalname)
+});
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 14
+    },
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg')
+            cb(null, true);
+        else
+            cb('Only jpeg/jpg or png files!', false);
+    }
+});
 
 //Teacher Change Password
 router.post('/changepassword/:id', [
@@ -36,7 +51,7 @@ router.delete('/course/deletecourse/:id', Course.deleteCourse);
 router.post('/course/addschedule/:id', Course.addCourseSchedule);
 
 //Teacher Check Course Attendance
-router.post('/course/takeattendance/:id/:date', Course.takeAttendance);
+router.post('/course/takeattendance/:id/:date', upload.single('image'), Course.takeAttendance);
 
 //Teacher Manage Course Attendance
 router.post('/course/manageattendance/:id/:date', Course.manageAttendance);
