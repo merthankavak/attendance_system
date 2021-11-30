@@ -158,6 +158,7 @@ exports.showCourseList = async function (req, res) {
 // @access Public
 exports.takeAttendance = async (req, res) => {
     try {
+        res.set('Content-Type', 'text/plain');
         const id = req.params.id;
         const date = req.params.date;
 
@@ -167,7 +168,7 @@ exports.takeAttendance = async (req, res) => {
             message: 'Course does not exist'
         });
 
-        var image = req.file;
+        var image = req.files[0];
 
         if (!image) return res.status(401).json({
             message: 'You must upload at least one image'
@@ -210,7 +211,7 @@ exports.takeAttendance = async (req, res) => {
             totalStudent: studentsArray.length.toString(),
             participateStudent: participateStudent.toString(),
             absentStudent: (studentsArray.length - participateStudent).toString(),
-            studentsArray,
+            studentsArray: studentsArray,
             message: 'Attendance for the course was successfully taken'
         });
 
