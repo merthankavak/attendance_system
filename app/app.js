@@ -15,11 +15,13 @@ app.use(express.urlencoded({
 app.use(express.json({
     limit: '50mb'
 }));
+
 app.use(cors({
     'origin': '*',
     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
     'preflightContinue': false
 }));
+
 app.use(bodyParser.json({
     limit: '50mb'
 }));

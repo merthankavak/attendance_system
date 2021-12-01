@@ -158,9 +158,6 @@ exports.showCourseList = async function (req, res) {
 // @access Public
 exports.takeAttendance = async (req, res) => {
     try {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const id = req.params.id;
         const date = req.params.date;
 
@@ -176,7 +173,7 @@ exports.takeAttendance = async (req, res) => {
             message: 'You must upload at least one image'
         });
 
-        var imageByte = Buffer.from(fs.readFileSync(image.path).toString('base64'), 'base64');
+        var imageByte = await Buffer.from(fs.readFileSync(image.path).toString('base64'), 'base64');
 
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
