@@ -13,12 +13,12 @@ app.use(bodyParser.json({
 }));
 app.use(bodyParser.urlencoded({
     limit: '50mb',
-    extended: false,
+    extended: true,
     parameterLimit: 50000
 }))
 app.use(express.urlencoded({
     limit: '50mb',
-    extended: false,
+    extended: true,
     parameterLimit: 50000
 }));
 app.use(express.json({
