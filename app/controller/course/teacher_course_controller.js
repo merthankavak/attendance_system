@@ -158,8 +158,9 @@ exports.showCourseList = async function (req, res) {
 // @access Public
 exports.takeAttendance = async (req, res) => {
     try {
-        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-        res.setHeader('Access-Control-Allow-Credentials', true);
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const id = req.params.id;
         const date = req.params.date;
 
