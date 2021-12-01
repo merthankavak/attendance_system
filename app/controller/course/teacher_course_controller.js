@@ -189,7 +189,7 @@ exports.takeAttendance = async (req, res) => {
         for (let i = 0; i < studentsArray.length; i++) {
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
-            var studentImageByte = Student.studentImage.imageByte;
+            var studentImageByte = student.studentImage.imageByte;
             var faceData = await rekognition.compareFaces({
                 SimilarityThreshold: 70,
                 TargetImage: {
@@ -212,7 +212,6 @@ exports.takeAttendance = async (req, res) => {
             participateStudent: participateStudent.toString(),
             absentStudent: (studentsArray.length - participateStudent).toString(),
             studentsArray: studentsArray,
-            message: 'Attendance for the course was successfully taken'
         });
 
     } catch (error) {
