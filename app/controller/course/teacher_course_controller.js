@@ -160,6 +160,8 @@ exports.takeAttendance = async (req, res) => {
     try {
         req.headers['Accept'] = '*/*';
         req.headers['Content-Type'] = 'multipart/form-data';
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
+        res.setHeader('Access-Control-Allow-Origin', '*');
         const id = req.params.id;
         const date = req.params.date;
 
