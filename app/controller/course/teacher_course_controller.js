@@ -158,6 +158,8 @@ exports.showCourseList = async function (req, res) {
 // @access Public
 exports.takeAttendance = async (req, res) => {
     try {
+        req.headers['Accept'] = '*/*';
+        req.headers['Content-Type'] = 'multipart/form-data';
         const id = req.params.id;
         const date = req.params.date;
 
