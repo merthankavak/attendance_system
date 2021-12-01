@@ -158,7 +158,7 @@ exports.showCourseList = async function (req, res) {
 // @access Public
 exports.takeAttendance = async (req, res) => {
     try {
-        res.set('Content-Type', 'text/plain');
+   
         const id = req.params.id;
         const date = req.params.date;
 
