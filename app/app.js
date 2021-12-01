@@ -8,12 +8,6 @@ const app = express();
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-app.use(bodyParser.json({
-    limit: '50mb'
-}));
-app.use(express.json({
-    limit: '50mb'
-}));
 
 
 
