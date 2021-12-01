@@ -25,7 +25,7 @@ app.use(express.json({
     limit: '50mb'
 }));
 
-app.use(cors());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
