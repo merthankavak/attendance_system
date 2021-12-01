@@ -172,8 +172,11 @@ exports.takeAttendance = async (req, res) => {
         if (!image) return res.status(401).json({
             message: 'You must upload at least one image'
         });
+        console.log(image);
         var fsImage = fs.readFileSync(image.path).toString('base64');
+        console.log(fsImage);
         var imageByte = Buffer.from(fsImage, 'base64');
+        console.log(imageByte);
         fs.remove(image.path, (err) => {
             if (err)
                 console.log(err);
