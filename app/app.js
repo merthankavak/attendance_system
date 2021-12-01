@@ -16,11 +16,8 @@ app.use(express.json({
     limit: '50mb'
 }));
 
-app.use(cors({
-    'origin': '*',
-    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    'preflightContinue': false
-}));
+app.use(cors());
+app.options('*', cors());
 
 app.use(bodyParser.json({
     limit: '50mb'
