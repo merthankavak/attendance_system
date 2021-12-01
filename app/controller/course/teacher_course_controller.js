@@ -174,7 +174,7 @@ exports.takeAttendance = async (req, res) => {
         });
         var fsImage = fs.readFileSync(image.path).toString('base64');
         var imageByte = Buffer.from(fsImage, 'base64');
-        fs.remove(req.file.path, (err) => {
+        fs.remove(image.path, (err) => {
             if (err)
                 console.log(err);
         });
