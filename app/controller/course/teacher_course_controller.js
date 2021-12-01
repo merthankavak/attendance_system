@@ -158,7 +158,7 @@ exports.showCourseList = async function (req, res) {
 // @access Public
 exports.takeAttendance = async (req, res) => {
     try {
-        
+
         const id = req.params.id;
         const date = req.params.date;
 
@@ -189,7 +189,7 @@ exports.takeAttendance = async (req, res) => {
         for (let i = 0; i < studentsArray.length; i++) {
             var studentId = studentsArray[i].id;
             var student = await Student.findById(studentId);
-            var studentImageByte = student.studentImage.imageByte;
+            var studentImageByte = Student.studentImage.imageByte;
             var faceData = await rekognition.compareFaces({
                 SimilarityThreshold: 70,
                 TargetImage: {
@@ -207,7 +207,7 @@ exports.takeAttendance = async (req, res) => {
             await currentCourse.save();
         }
 
-        return res.status(200).json({
+        res.status(200).json({
             totalStudent: studentsArray.length.toString(),
             participateStudent: participateStudent.toString(),
             absentStudent: (studentsArray.length - participateStudent).toString(),
