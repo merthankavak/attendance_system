@@ -8,6 +8,24 @@ const app = express();
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
+app.use(bodyParser.json({
+    limit: '50mb'
+}));
+app.use(bodyParser.urlencoded({
+    limit: '50mb',
+    extended: false,
+    parameterLimit: 50000
+}))
+app.use(express.urlencoded({
+    limit: '50mb',
+    extended: false,
+    parameterLimit: 50000
+}));
+app.use(express.json({
+    limit: '50mb'
+}));
+
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
