@@ -17,7 +17,7 @@
     "ba64": "^3.0.9",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.19.1",
     "clean-css": "^5.2.2",
     "constantinople": "^4.0.1",
     "cors": "^2.8.5",

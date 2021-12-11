@@ -6,6 +6,7 @@ const studentPassport = require('passport');
 const path = require('path');
 const app = express();
 var cors = require('cors');
+var bodyParser = require('body-parser');
 require('dotenv').config();
 
 app.use(cors({
@@ -13,15 +14,17 @@ app.use(cors({
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));
-
+app.use('/app', express.static(path.join(__dirname, "app")));
 app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
-app.use(express.static('app'));
-app.set
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
