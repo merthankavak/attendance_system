@@ -8,9 +8,12 @@ const app = express();
 var cors = require('cors');
 require('dotenv').config();
 
-app.use(cors());
+app.use(cors({
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({
+    exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
     extended: true
 }));
 
