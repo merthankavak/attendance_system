@@ -10,9 +10,8 @@ require('dotenv').config();
 
 app.use(cors({
     credentials: true,
-    exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
-
 }));
+
 app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({
