@@ -5,10 +5,10 @@ const teacherPassport = require('passport');
 const studentPassport = require('passport');
 const path = require('path');
 const app = express();
-
+var cors = requre('cors');
 require('dotenv').config();
 
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
