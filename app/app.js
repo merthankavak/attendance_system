@@ -18,7 +18,7 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-//app.use(express.static('public'));
+app.use(express.static('app'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
