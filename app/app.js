@@ -6,8 +6,21 @@ const studentPassport = require('passport');
 const path = require('path');
 const app = express();
 const multer = require('multer');
-const upload = multer();
-
+const storage = multer.diskStorage({
+    destination: './uploads/',
+    filename: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+            //cb(null, new Date().toISOString() + '-' + file.originalname)
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+});
+const upload = multer({
+    storage: storage,
+});
 require('dotenv').config();
 
 
@@ -15,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
-app.use(upload.array());
+upload.single('image')
 app.use(express.static('public'));
 
 // view engine setup
