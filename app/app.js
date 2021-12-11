@@ -5,6 +5,8 @@ const teacherPassport = require('passport');
 const studentPassport = require('passport');
 const path = require('path');
 const app = express();
+const multer = require('multer');
+const upload = multer();
 
 require('dotenv').config();
 
@@ -13,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+app.use(upload.array());
 app.use(express.static('public'));
 
 // view engine setup
