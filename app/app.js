@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
             //cb(null, new Date().toISOString() + '-' + file.originalname)
         } else {
             cb(null, false);
-            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+            //return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
         }
     }
 });
