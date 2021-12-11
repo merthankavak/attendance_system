@@ -1,15 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
+
 const teacherPassport = require('passport');
 const studentPassport = require('passport');
 const path = require('path');
 const app = express();
-const bodyParser = require('body-parser');
+
 require('dotenv').config();
 
 
-
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
+app.use(express.static('public'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
