@@ -9,11 +9,19 @@ const router = express.Router();
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: './uploads/',
-    filename: (req, file, cb) => cb(null, new Date().toISOString() + '-' + file.originalname)
+    filename: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+            //cb(null, new Date().toISOString() + '-' + file.originalname)
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
 });
 const upload = multer({
     storage: storage,
-  
+
 });
 
 //Teacher Change Password
