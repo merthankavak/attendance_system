@@ -51,10 +51,7 @@ router.delete('/course/deletecourse/:id', Course.deleteCourse);
 router.post('/course/addschedule/:id', Course.addCourseSchedule);
 
 //Teacher Check Course Attendance
-router.post('/course/takeattendance/:id/:date', upload.fields([{
-    name: 'image',
-    maxCount: 1
-}]), Course.takeAttendance);
+router.post('/course/takeattendance/:id/:date', upload.array(), Course.takeAttendance);
 
 //Teacher Manage Course Attendance
 router.post('/course/manageattendance/:id/:date', Course.manageAttendance);
