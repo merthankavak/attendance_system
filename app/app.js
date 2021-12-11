@@ -8,18 +8,21 @@ const app = express();
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: './uploads/',
-    filename: (req, file, cb) => {
-        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
-            cb(null, true);
-            //cb(null, new Date().toISOString() + '-' + file.originalname)
-        } else {
-            cb(null, false);
-            //return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
-        }
-    }
+    filename: (req, file, cb) => cb(null, new Date().toISOString() + '-' + file.originalname)
+
 });
 const upload = multer({
     storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 14
+    },
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb('Only jpeg/jpg or png files!', false);
+        }
+    }
 });
 require('dotenv').config();
 
