@@ -9,6 +9,8 @@ var cors = require('cors');
 require('dotenv').config();
 
 app.use(cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));
 
@@ -19,7 +21,7 @@ app.use(express.urlencoded({
 }));
 
 app.use(express.static('app'));
-
+app.set
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
