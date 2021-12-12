@@ -7,15 +7,31 @@ const Teacher = require('../../controller/teacher/controller/teacher_controller'
 const Course = require('../../controller/course/teacher_course_controller');
 const router = express.Router();
 const multer = require('multer');
+const multerS3 = require('multer-s3');
+
+/*
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, __dirname);
     },
     filename: (req, file, cb) => cb(null, file.originalname)
 
-});
+});*/
 const upload = multer({
-    storage: storage,
+    storage: multerS3({
+        acl: "public-read",
+        s3,
+        bucket: "attendancesystembucket",
+        metadata: function (req, file, cb) {
+            cb(null, {
+                fieldName: "TESTING_METADATA"
+            });
+        },
+        key: function (req, file, cb) {
+            cb(null, Date.now().toString());
+        },
+    }),
+
     fileFilter: (req, file, cb) => {
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
             cb(null, true);

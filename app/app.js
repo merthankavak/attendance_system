@@ -9,13 +9,9 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 require('dotenv').config();
 
-app.use(cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
-}));
+app.use(cors());
 app.use(express.static(__dirname));
-app.options('*', cors());
+
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
