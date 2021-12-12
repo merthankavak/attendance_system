@@ -5,7 +5,7 @@ const moment = require('moment');
 const fs = require('fs-extra');
 var rp = require('request-promise');
 const AWS = require('aws-sdk');
-const request = require('request');
+
 
 
 const config = new AWS.Config({
@@ -177,7 +177,7 @@ exports.takeAttendance = async (req, res) => {
         });
         console.log(image);
 
-        var imageFromUrl = request(
+        var imageFromUrl = rp(
             image.location
         ).pipe(fs.createWriteStream('./uploads/')).promise();
 
