@@ -5,6 +5,7 @@ const moment = require('moment');
 const fs = require('fs-extra');
 var rp = require('request-promise');
 const AWS = require('aws-sdk');
+const request = require('request');
 
 
 const config = new AWS.Config({
@@ -175,11 +176,14 @@ exports.takeAttendance = async (req, res) => {
             message: 'You must upload at least one image'
         });
         console.log(image);
-        var imageFromUrl = await rp(image.location);
-        var fsImage = fs.createReadStream(imageFromUrl).toString('base64');
-        console.log("Fs image: " + fsImage);
-        var imageByte = Buffer.from(fsImage, 'base64');
-        console.log(imageByte);
+
+        var imageFromUrl = await request.get({
+            url: image.location
+        });
+
+        var imageByte = Buffer.from(imageFromUrl, 'base64');
+        // var fsImage = fs.writeFileSync('./uploads/', imageByte);
+
         fs.remove(image.path, (err) => {
             if (err)
                 console.log(err);
