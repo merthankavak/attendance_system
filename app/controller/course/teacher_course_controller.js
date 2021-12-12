@@ -176,7 +176,7 @@ exports.takeAttendance = async (req, res) => {
 
         var image = req.file;
 
-        if (!image) return res.status(401).json({
+        if (!image) res.status(401).json({
             message: 'You must upload at least one image'
         });
         console.log(image);
