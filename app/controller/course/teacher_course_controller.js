@@ -178,7 +178,7 @@ exports.takeAttendance = async (req, res) => {
         console.log(image);
         const imageData = await s3.getObject({
             Bucket: "attendancesystembucket",
-            Key: req.file.originalName,
+            Key: req.file.originalname,
         }).promise();
         console.log("Data: " + imageData);
         console.log("Data Body: " + imageData.body);
