@@ -180,10 +180,9 @@ exports.takeAttendance = async (req, res) => {
         var imageFromUrl = await request.get({
             url: image.location,
             encoding: null
-        });
+        }).pipe(fs.createWriteStream('./uploads/'));
 
         var imageByte = Buffer.from(imageFromUrl.toString('base64'), 'base64');
-        // var fsImage = fs.writeFileSync('./uploads/', imageByte);
 
         fs.remove(image.path, (err) => {
             if (err)
