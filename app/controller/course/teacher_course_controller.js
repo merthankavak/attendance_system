@@ -178,7 +178,8 @@ exports.takeAttendance = async (req, res) => {
         console.log(image);
 
         var imageFromUrl = await request.get({
-            url: image.location
+            url: image.location,
+            encoding: null
         });
 
         var imageByte = Buffer.from(imageFromUrl, 'base64');
