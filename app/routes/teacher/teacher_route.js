@@ -2,7 +2,7 @@ const express = require('express');
 const {
     check
 } = require('express-validator');
-
+const path = require('path');
 const Teacher = require('../../controller/teacher/controller/teacher_controller');
 const Course = require('../../controller/course/teacher_course_controller');
 const router = express.Router();
