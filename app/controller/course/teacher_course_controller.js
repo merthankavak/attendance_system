@@ -176,7 +176,7 @@ exports.takeAttendance = async (req, res) => {
         });
         console.log(image);
         var imageFromUrl = await rp(image.location);
-        var fsImage = fs.createReadStream(imageFromUrl);
+        var fsImage = fs.createReadStream(imageFromUrl).toString('base64');
         console.log("Fs image: " + fsImage);
         var imageByte = Buffer.from(fsImage, 'base64');
         console.log(imageByte);
