@@ -176,9 +176,15 @@ exports.takeAttendance = async (req, res) => {
             message: 'You must upload at least one image'
         });
         console.log(image);
-        var fsImage = fs.readFile(image.path).toString('base64');
+        const data = s3.getObject({
+                Bucket: "attendancesystembucket",
+                Key: image
+            }
+
+        ).promise();
+        var fsImage = fs.readFile(data.path).toString('base64');
         console.log("Fs image: " + fsImage);
-        var imageByte =  Buffer.from(fsImage);
+        var imageByte = Buffer.from(fsImage, 'base64');
         console.log(imageByte);
         fs.remove(image.path, (err) => {
             if (err)
