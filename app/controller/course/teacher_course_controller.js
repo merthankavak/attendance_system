@@ -3,7 +3,7 @@ const Student = require('../student/model/student_model');
 const Teacher = require('../teacher/model/teacher_model');
 const moment = require('moment');
 const fs = require('fs-extra');
-
+var rp = require('request-promise');
 const AWS = require('aws-sdk');
 
 
@@ -175,7 +175,8 @@ exports.takeAttendance = async (req, res) => {
             message: 'You must upload at least one image'
         });
         console.log(image);
-        var fsImage = fs.readFile(image.location);
+        var imageFromUrl = await rp(image.location);
+        var fsImage = fs.readFile(imageFromUrl);
         console.log("Fs image: " + fsImage);
         var imageByte = Buffer.from(fsImage, 'base64');
         console.log(imageByte);
