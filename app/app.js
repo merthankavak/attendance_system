@@ -14,7 +14,7 @@ app.use(cors({
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));
-app.use('/app', express.static(path.join(__dirname, "app")));
+app.use('/uploads', express.static(path.join(__dirname, "uploads")));
 app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({
