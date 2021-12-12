@@ -23,12 +23,13 @@ const storage = multer.diskStorage({
 
 });*/
 const upload = multer({
-
     storage: multerS3({
         acl: "public-read",
         s3,
         bucket: "attendancesystembucket",
-        contentEncoding: base64,
+        Body: function (req, file, cb) {
+            cb(null, file.buffer)
+        },
         metadata: function (req, file, cb) {
             cb(null, {
                 fieldName: file.fieldname
