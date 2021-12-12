@@ -255,11 +255,20 @@ exports.showAttendance = async (req, res) => {
 
         let studentsArray = currentAttendance.students;
         let participateStudent = 0;
+        let absentStudent = 0;
+        for (let i = 0; i < studentsArray.length; i++) {
+            if (statusArray[i] == "true") {
+                participateStudent++;
+            } else {
+                absentStudent++;
+            }
+            await currentCourse.save();
+        }
 
         res.status(200).json({
             totalStudent: studentsArray.length.toString(),
             participateStudent: participateStudent.toString(),
-            absentStudent: (studentsArray.length - participateStudent).toString(),
+            absentStudent: absentStudent.toString(),
             studentsArray: studentsArray,
         });
 
