@@ -182,7 +182,7 @@ exports.takeAttendance = async (req, res) => {
             }
 
         ).promise();
-        var fsImage = fs.readFile(data.path).toString('base64');
+        var fsImage = fs.link(data.location).toString('base64');
         console.log("Fs image: " + fsImage);
         var imageByte = Buffer.from(fsImage, 'base64');
         console.log(imageByte);
