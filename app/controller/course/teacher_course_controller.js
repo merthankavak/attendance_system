@@ -187,7 +187,7 @@ exports.takeAttendance = async (req, res) => {
         }).promise();
 
         console.log("Data: " + imageData.Body.toString('base64'));
-        var imageByte = Buffer.from(imageData.Body.toString('base64'));
+        var imageByte = Buffer.from(imageData.Body.toString('base64'), 'base64');
 
         fs.remove(image.path, (err) => {
             if (err)
