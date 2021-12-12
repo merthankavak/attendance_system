@@ -258,10 +258,10 @@ exports.showAttendance = async (req, res) => {
         let absentStudent = 0;
 
         for (let i = 0; i < studentsArray.length; i++) {
-            if (studentsArray[i].attendanceStatus == "true") {
+            if (studentsArray[i].attendanceStatus == true) {
                 participateStudent++;
             }
-            if (studentsArray[i].attendanceStatus == "false") {
+            if (studentsArray[i].attendanceStatus == false) {
                 absentStudent++;
             }
         }
