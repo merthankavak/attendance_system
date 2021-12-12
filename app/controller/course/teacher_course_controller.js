@@ -180,12 +180,14 @@ exports.takeAttendance = async (req, res) => {
             message: 'You must upload at least one image'
         });
         console.log(image);
+
         const imageData = await s3.getObject({
             Bucket: "attendancesystembucket",
             Key: req.file.originalname,
         }).promise();
+
         console.log("Data: " + imageData);
-        var imageByte = Buffer.from(imageData.Body.toString('base64'), 'base64');
+        var imageByte = Buffer.from(imageData.Body.toString(), 'base64');
 
         fs.remove(image.path, (err) => {
             if (err)
