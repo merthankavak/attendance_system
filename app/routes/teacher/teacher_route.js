@@ -23,14 +23,10 @@ const upload = multer({
         //acl: "public-read",
         s3,
         bucket: "attendancesystembucket",
-        metadata: function (req, file, cb) {
-            cb(null, {
-                fieldName: "TESTING_METADATA"
-            });
-        },
         key: function (req, file, cb) {
-            cb(null, Date.now().toString());
+            cb(null, file.originalname);
         },
+       
     }),
 
     fileFilter: (req, file, cb) => {

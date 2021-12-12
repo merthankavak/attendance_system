@@ -6,7 +6,6 @@ const moment = require('moment');
 const fs = require('fs-extra');
 
 const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
 
 
 const config = new AWS.Config({
