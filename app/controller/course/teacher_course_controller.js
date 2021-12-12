@@ -265,8 +265,7 @@ exports.showAttendance = async (req, res) => {
                 absentStudent++;
             }
         }
-
-
+        res.status(200);
 
     } catch (error) {
         res.status(500).json({
