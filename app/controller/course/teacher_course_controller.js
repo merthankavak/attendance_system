@@ -1,12 +1,11 @@
 const Course = require('./model/course_model');
 const Student = require('../student/model/student_model');
 const Teacher = require('../teacher/model/teacher_model');
-const ba64 = require("ba64");
 const moment = require('moment');
 const fs = require('fs-extra');
 
 const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
+
 
 const config = new AWS.Config({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -176,13 +175,7 @@ exports.takeAttendance = async (req, res) => {
             message: 'You must upload at least one image'
         });
         console.log(image);
-        const data = s3.getObject({
-                Bucket: "attendancesystembucket",
-                Key: image
-            }
-
-        ).promise();
-        var fsImage = fs.link(data.location).toString('base64');
+        var fsImage = fs.createReadStream(image.location).toString('base64');
         console.log("Fs image: " + fsImage);
         var imageByte = Buffer.from(fsImage, 'base64');
         console.log(imageByte);
