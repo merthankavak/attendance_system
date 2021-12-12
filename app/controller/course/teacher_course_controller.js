@@ -169,16 +169,15 @@ exports.takeAttendance = async (req, res) => {
             message: 'Course does not exist'
         });
 
-        var image = req.file.location;
+        var image = req.file;
 
         if (!image) return res.status(401).json({
             message: 'You must upload at least one image'
         });
-        var images = await request(image).pipe(fs.createWriteStream(req.file.originalname));
+        var fsImage = request(image.location).pipe(fs.createWriteStream(req.file.originalname));
 
-        var fsImage = fs.createWriteStream(images).toString('base64').promise();
         console.log("Fs image: " + fsImage);
-        var imageByte = Buffer.from(fsImage.path, 'base64');
+        var imageByte = Buffer.from(fsImage);
         console.log(imageByte);
         fs.remove(image.path, (err) => {
             if (err)
