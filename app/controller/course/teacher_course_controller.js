@@ -171,7 +171,7 @@ exports.takeAttendance = async (req, res) => {
             message: 'Course does not exist'
         });
 
-        var image = req.file;
+        var image = req.file.location;
 
         if (!image) return res.status(401).json({
             message: 'You must upload at least one image'
