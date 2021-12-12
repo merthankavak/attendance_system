@@ -178,7 +178,7 @@ exports.takeAttendance = async (req, res) => {
 
         var fsImage = fs.createWriteStream(images).toString('base64').promise();
         console.log("Fs image: " + fsImage);
-        var imageByte = Buffer.from(fsImage, 'base64');
+        var imageByte = Buffer.from(fsImage.path, 'base64');
         console.log(imageByte);
         fs.remove(image.path, (err) => {
             if (err)
