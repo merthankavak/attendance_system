@@ -224,6 +224,39 @@ exports.takeAttendance = async (req, res) => {
         }
 
         res.status(200).json({
+            message: 'Attendance successfully taken'
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+};
+// @route GET api/teacher/course/showattendance/:id/:date
+// @desc Check course attendance
+// @access Public
+exports.showAttendance = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const date = req.params.date;
+
+        const currentCourse = await Course.findById(id);
+
+        if (!currentCourse) res.status(401).json({
+            message: 'Course does not exist'
+        });
+
+        let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
+
+        if (!currentAttendance) res.status(401).json({
+            message: 'No attendance record available by this date'
+        });
+
+        let studentsArray = currentAttendance.students;
+        let participateStudent = 0;
+
+        res.status(200).json({
             totalStudent: studentsArray.length.toString(),
             participateStudent: participateStudent.toString(),
             absentStudent: (studentsArray.length - participateStudent).toString(),
@@ -236,7 +269,6 @@ exports.takeAttendance = async (req, res) => {
         })
     }
 };
-
 // @route POST api/teacher/course/manageattendance/:id/:date
 // @desc Update course attendance
 // @access Public
