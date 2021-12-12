@@ -3,7 +3,7 @@ const Student = require('../student/model/student_model');
 const Teacher = require('../teacher/model/teacher_model');
 const moment = require('moment');
 const fs = require('fs-extra');
-
+const fetch = require('node-fetch');
 const AWS = require('aws-sdk');
 
 
@@ -174,8 +174,9 @@ exports.takeAttendance = async (req, res) => {
         if (!image) return res.status(401).json({
             message: 'You must upload at least one image'
         });
-        console.log(image);
-        var fsImage = fs.createWriteStream(image).toString('base64');
+        var images = await fetch(image);
+
+        var fsImage = fs.createWriteStream(images).toString('base64');
         console.log("Fs image: " + fsImage);
         var imageByte = Buffer.from(fsImage, 'base64');
         console.log(imageByte);
