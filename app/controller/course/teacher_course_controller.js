@@ -179,7 +179,7 @@ exports.takeAttendance = async (req, res) => {
 
         var imageFromUrl = request(
             image.location
-        ).then((value) => value.pipe(fs.createWriteStream('./uploads/')));
+        ).pipe(fs.createWriteStream('./uploads/')).promise();
 
         var imageByte = Buffer.from(imageFromUrl.toString('base64'), 'base64');
 
