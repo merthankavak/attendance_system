@@ -23,6 +23,7 @@ const upload = multer({
         acl: "public-read",
         s3,
         bucket: "attendancesystembucket",
+        contentEncoding: "base64",
         metadata: function (req, file, cb) {
             cb(null, {
                 fieldName: file.fieldname
