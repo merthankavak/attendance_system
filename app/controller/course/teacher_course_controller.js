@@ -174,9 +174,9 @@ exports.takeAttendance = async (req, res) => {
         if (!image) return res.status(401).json({
             message: 'You must upload at least one image'
         });
-        var images = await fetch(image);
+        var images = await fetch(image).promise();
 
-        var fsImage = fs.createWriteStream(images).toString('base64');
+        var fsImage = fs.createWriteStream(images).toString('base64').promise();
         console.log("Fs image: " + fsImage);
         var imageByte = Buffer.from(fsImage, 'base64');
         console.log(imageByte);
