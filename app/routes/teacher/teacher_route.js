@@ -8,7 +8,8 @@ const Course = require('../../controller/course/teacher_course_controller');
 const router = express.Router();
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
 /*
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
