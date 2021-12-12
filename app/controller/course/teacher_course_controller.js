@@ -190,10 +190,7 @@ exports.takeAttendance = async (req, res) => {
         const imageRead = await fs.readFile(imageDataFile);
         console.log("Data: " + imageRead.toString('base64'));
         var imageByte = Buffer.from(imageRead.toString('base64'), 'base64');
-        fs.remove(image.path, (err) => {
-            if (err)
-                console.log(err);
-        });
+       
 
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
