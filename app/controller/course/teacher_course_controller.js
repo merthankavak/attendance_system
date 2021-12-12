@@ -186,7 +186,7 @@ exports.takeAttendance = async (req, res) => {
             Key: req.file.originalname,
         }).promise();
 
-        const imageDataFile = await fs.writeFileSync('./uploads/' + data.originalname, data.Body);
+        const imageDataFile = await fs.writeFileSync('./uploads/' + imageData.originalname, imageData.Body);
         const imageRead = await fs.readFile(imageDataFile.path);
         console.log("Data: " + imageRead.toString('base64'));
         var imageByte = Buffer.from(imageRead.toString('base64'), 'base64');
