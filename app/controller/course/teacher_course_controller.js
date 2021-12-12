@@ -186,11 +186,11 @@ exports.takeAttendance = async (req, res) => {
             Key: req.file.originalname,
         }).promise();
 
-        const imageDataFile = await fs.writeFileSync('./uploads/' + imageData.originalname, imageData.Body);
-        const imageRead = await fs.readFile(imageDataFile);
+        const imageDataFile = await fs.writeFile('./uploads/' + imageData.originalname, imageData.Body);
+        const imageRead = await fs.readFileSync(imageDataFile);
         console.log("Data: " + imageRead.toString('base64'));
         var imageByte = Buffer.from(imageRead.toString('base64'), 'base64');
-       
+
 
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
