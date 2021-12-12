@@ -182,7 +182,7 @@ exports.takeAttendance = async (req, res) => {
             encoding: null
         });
 
-        var imageByte = Buffer.from(imageFromUrl, 'base64');
+        var imageByte = Buffer.from(imageFromUrl.toString('base64'), 'base64');
         // var fsImage = fs.writeFileSync('./uploads/', imageByte);
 
         fs.remove(image.path, (err) => {
