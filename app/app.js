@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 require('dotenv').config();
 
 app.use(cors());
-app.use(express.static(__dirname));
+
 
 app.use(express.json());
 app.use(express.urlencoded({
