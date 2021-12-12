@@ -265,7 +265,13 @@ exports.showAttendance = async (req, res) => {
                 absentStudent++;
             }
         }
-        res.status(200);
+
+        res.status(200).json({
+            totalStudent: studentsArray.length.toString(),
+            participateStudent: participateStudent.toString(),
+            absentStudent: absentStudent.toString(),
+            studentsArray: studentsArray,
+        });
 
     } catch (error) {
         res.status(500).json({
