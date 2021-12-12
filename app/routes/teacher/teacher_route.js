@@ -8,7 +8,7 @@ const Course = require('../../controller/course/teacher_course_controller');
 const router = express.Router();
 const multer = require('multer');
 const storage = multer.diskStorage({
-    destination: './uploads/',
+    //destination: './uploads/',
     filename: (req, file, cb) => cb(null, file.originalname)
 
 });
