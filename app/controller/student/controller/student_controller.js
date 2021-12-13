@@ -88,7 +88,7 @@ exports.update = async function (req, res) {
                 const studentNewFileType = image.mimetype;
                 student.studentImage.imageByte = imageByte;
                 student.studentImage.fileType = studentNewFileType;
-                student.imageUrl = image.location;
+                student.imageUrl = imageData.location;
 
                 await student.save();
 
@@ -111,7 +111,7 @@ exports.update = async function (req, res) {
                     const studentNewFileType = image.mimetype;
                     student.studentImage.imageByte = imageByte;
                     student.studentImage.fileType = studentNewFileType;
-                    student.imageUrl = image.location;
+                    student.imageUrl = imageData.location;
 
                     await student.save();
 
@@ -135,7 +135,7 @@ exports.update = async function (req, res) {
                     const studentNewFileType = image.mimetype;
                     student.studentImage.imageByte = imageByte;
                     student.studentImage.fileType = studentNewFileType;
-                    student.imageUrl = image.location;
+                    student.imageUrl = imageData.location;
 
                     await student.save();
 
