@@ -167,7 +167,6 @@ exports.takeAttendance = async (req, res) => {
     try {
         const id = req.params.id;
         const date = req.params.date;
-
         const currentCourse = await Course.findById(id).exec();
 
         if (!currentCourse) res.status(401).json({
@@ -179,7 +178,6 @@ exports.takeAttendance = async (req, res) => {
         if (!image) res.status(401).json({
             message: 'You must upload at least one image'
         });
-        console.log(image);
 
         const imageData = await s3.getObject({
             Bucket: "attendancesystembucket",
@@ -187,17 +185,14 @@ exports.takeAttendance = async (req, res) => {
         }).promise();
 
         await fs.writeFile('./uploads/' + imageData.originalname, imageData.Body);
+
         const imageRead = await fs.readFileSync('./uploads/' + imageData.originalname);
-        console.log("Data: " + imageRead.toString('base64'));
         var imageByte = Buffer.from(imageRead.toString('base64'), 'base64');
-
-
         let currentAttendance = await currentCourse.attendance.find((attendance) => attendance.date == date);
 
         if (!currentAttendance) res.status(401).json({
             message: 'No attendance record available by this date'
         });
-
 
         let studentsArray = currentAttendance.students;
         let participateStudent = 0;
