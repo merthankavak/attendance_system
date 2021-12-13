@@ -311,7 +311,7 @@ exports.manageAttendance = async (req, res) => {
         res.status(200).json({
             totalStudent: studentsArray.length.toString(),
             participateStudent: participateStudent.toString(),
-            absentStudent: studentsArray.length - participateStudent.toString(),
+            absentStudent: (studentsArray.length - participateStudent).toString(),
             studentsArray: studentsArray,
             message: 'Attendance for the course was successfully updated'
         });
