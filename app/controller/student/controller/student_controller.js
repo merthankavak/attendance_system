@@ -54,13 +54,13 @@ exports.update = async function (req, res) {
 
         const student = await Student.findById(id);
 
-        if (!student) return res.status(401).json({
+        if (!student) res.status(401).json({
             message: 'Student does not exist'
         });
 
         if (!image) {
             // Name only
-            if (newName == student.fullName) return res.status(401).json({
+            if (newName == student.fullName) res.status(401).json({
                 message: 'Same as previous name!'
             });
 
