@@ -168,7 +168,7 @@ exports.takeAttendance = async (req, res) => {
         const id = req.params.id;
         const date = req.params.date;
 
-        const currentCourse = await Course.findById(id);
+        const currentCourse = await Course.findById(id).exec();
 
         if (!currentCourse) res.status(401).json({
             message: 'Course does not exist'
@@ -223,7 +223,7 @@ exports.takeAttendance = async (req, res) => {
             await currentCourse.save();
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Attendance successfully taken'
         });
 
