@@ -47,6 +47,6 @@
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "semver": "^7.3.5",
-    "validator": "^13.6.0"
+    "validator": "^13.7.0"
   }
 }
