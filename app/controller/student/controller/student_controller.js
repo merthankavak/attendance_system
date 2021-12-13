@@ -52,7 +52,7 @@ exports.update = async function (req, res) {
         const newName = req.body.fullName;
         var image = req.file;
 
-        const student = await Student.findById(id);
+        const student = await Student.findById(id).exec();
 
         if (!student) res.status(401).json({
             message: 'Student does not exist'
