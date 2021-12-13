@@ -1,5 +1,20 @@
 const Student = require('../model/student_model');
 const fs = require('fs-extra');
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION,
+});
+
+
+const config = new AWS.Config({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION,
+
+});
 
 // @route POST api/student/changepassword/:id
 // @desc Student Change Password
@@ -60,11 +75,20 @@ exports.update = async function (req, res) {
         } else {
             //Image only
             if (!newName) {
-                const studentNewImage = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
-                const studentNewFileType = image.mimetype;
+                const imageData = await s3.getObject({
+                    Bucket: "attendancesystembucket",
+                    Key: req.file.originalname,
+                }).promise();
 
-                student.studentImage.imageByte = studentNewImage;
+                await fs.writeFile('./uploads/' + imageData.originalname, imageData.Body);
+
+                const imageRead = await fs.readFileSync('./uploads/' + imageData.originalname);
+                var imageByte = Buffer.from(imageRead.toString('base64'), 'base64');
+
+                const studentNewFileType = image.mimetype;
+                student.studentImage.imageByte = imageByte;
                 student.studentImage.fileType = studentNewFileType;
+                student.imageUrl = image.location;
 
                 await student.save();
 
@@ -74,11 +98,20 @@ exports.update = async function (req, res) {
 
             } else {
                 if (newName === student.fullName) {
-                    const studentNewImage = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
-                    const studentNewFileType = image.mimetype;
+                    const imageData = await s3.getObject({
+                        Bucket: "attendancesystembucket",
+                        Key: req.file.originalname,
+                    }).promise();
 
-                    student.studentImage.imageByte = studentNewImage;
+                    await fs.writeFile('./uploads/' + imageData.originalname, imageData.Body);
+
+                    const imageRead = await fs.readFileSync('./uploads/' + imageData.originalname);
+                    var imageByte = Buffer.from(imageRead.toString('base64'), 'base64');
+
+                    const studentNewFileType = image.mimetype;
+                    student.studentImage.imageByte = imageByte;
                     student.studentImage.fileType = studentNewFileType;
+                    student.imageUrl = image.location;
 
                     await student.save();
 
@@ -89,11 +122,20 @@ exports.update = async function (req, res) {
                 } else {
                     //Image and name
                     student.fullName = newName;
-                    const studentNewImage = Buffer(fs.readFileSync(image.path).toString('base64'), 'base64');
-                    const studentNewFileType = image.mimetype;
+                    const imageData = await s3.getObject({
+                        Bucket: "attendancesystembucket",
+                        Key: req.file.originalname,
+                    }).promise();
 
-                    student.studentImage.imageByte = studentNewImage;
+                    await fs.writeFile('./uploads/' + imageData.originalname, imageData.Body);
+
+                    const imageRead = await fs.readFileSync('./uploads/' + imageData.originalname);
+                    var imageByte = Buffer.from(imageRead.toString('base64'), 'base64');
+
+                    const studentNewFileType = image.mimetype;
+                    student.studentImage.imageByte = imageByte;
                     student.studentImage.fileType = studentNewFileType;
+                    student.imageUrl = image.location;
 
                     await student.save();
 

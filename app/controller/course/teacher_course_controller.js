@@ -3,7 +3,7 @@ const Student = require('../student/model/student_model');
 const Teacher = require('../teacher/model/teacher_model');
 const moment = require('moment');
 const fs = require('fs-extra');
-var rp = require('request-promise');
+
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,

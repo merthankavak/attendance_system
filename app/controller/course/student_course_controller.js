@@ -1,5 +1,6 @@
 const Course = require('./model/course_model');
 const Student = require('../student/model/student_model');
+const AWS = require('aws-sdk');
 
 // @route POST api/student/course/joincourse
 // @desc Join course with courseCode

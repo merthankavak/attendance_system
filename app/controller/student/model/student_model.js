@@ -29,6 +29,9 @@ const StudentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    imageUrl: {
+        type: String,
+    },
     studentImage: {
         imageByte: {
             type: Buffer
@@ -37,7 +40,7 @@ const StudentSchema = new mongoose.Schema({
             type: String
         },
     },
-    
+
     isVerified: {
         type: Boolean,
         default: false
