@@ -41,7 +41,7 @@
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.13",
     "nth-check": "^2.0.1",
-    "passport": "^0.5.0",
+    "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "path": "^0.12.7",
     "request": "^2.88.2",
