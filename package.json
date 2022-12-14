@@ -25,7 +25,7 @@
     "datauri": "^4.1.0",
     "dateformat": "^5.0.1",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-validator": "^6.12.2",
     "fs-extra": "^10.0.0",
     "http-status-codes": "^2.1.4",
