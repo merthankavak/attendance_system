@@ -1,5 +1,5 @@
 # Attendance System / Backend
-> A Deep Learning Based Attendance System backend services.
+> Attendance System backend services.
 #
 
 ## Technologies:
